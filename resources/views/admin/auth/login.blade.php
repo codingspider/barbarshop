@@ -1,75 +1,86 @@
-@extends('admin.layouts.app')
+<!doctype html>
+<html class="no-js" lang="en" dir="ltr">
 
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Login') }}</div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>::Cryptoon:: Signin</title>
+    <link rel="icon" href="{{ asset('admin/assets/favicon.ico') }}" type="image/x-icon"> <!-- Favicon-->
 
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('admin.login') }}">
-                            @csrf
+    <!-- project css file  -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/cryptoon.style.min.css') }}">
+</head>
 
-                            <div class="row mb-3">
-                                <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+<body>
+    <div id="cryptoon-layout" class="theme-orange">
 
-                                <div class="col-md-6">
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+        <!-- main body area -->
+        <div class="container-fluid vh-100 d-flex align-items-center justify-content-center bg-light">
+    <div class="row w-100">
+        <!-- Login Form -->
+        <div class="col-lg-6 d-flex align-items-center justify-content-center">
+            <div class="card shadow-sm border-0 rounded-4 p-4" style="width: 100%; max-width: 450px;">
+                <div class="card-body">
+                    <h2 class="text-center mb-3">Welcome Back</h2>
+                    <p class="text-center text-muted mb-4">Sign in to your admin account</p>
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                    <form method="POST" action="{{ route('admin.login') }}">
+                        @csrf
 
-                            <div class="row mb-3">
-                                <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input id="email" type="email"
+                                class="form-control @error('email') is-invalid @enderror"
+                                name="email" value="{{ old('email') }}" required autofocus>
+                            @error('email')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                                <div class="col-md-6">
-                                    <input id="password" type="password"
-                                        class="form-control @error('password') is-invalid @enderror" name="password"
-                                        required autocomplete="current-password">
+                        <!-- Password -->
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <input id="password" type="password"
+                                class="form-control @error('password') is-invalid @enderror"
+                                name="password" required>
+                            @error('password')
+                                <span class="invalid-feedback">{{ $message }}</span>
+                            @enderror
+                        </div>
 
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                        <!-- Remember Me -->
+                        <div class="mb-3 form-check">
+                            <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                {{ old('remember') ? 'checked' : '' }}>
+                            <label class="form-check-label" for="remember">
+                                Remember Me
+                            </label>
+                        </div>
 
-                            <div class="row mb-3">
-                                <div class="col-md-6 offset-md-4">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                            {{ old('remember') ? 'checked' : '' }}>
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
 
-                                        <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Login') }}
-                                    </button>
-
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="text-center">
+                            <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot password?</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
+
+        <!-- Image / Illustration -->
+        <div class="col-lg-6 d-none d-lg-flex align-items-center justify-content-center bg-primary rounded-end">
+            <div class="text-center text-white px-4">
+                <h2>Admin Panel</h2>
+                <p class="lead">Manage your application efficiently and securely</p>
+                <img src="{{ asset('admin/assets/images/qr-code.png') }}" alt="QR Code" class="img-fluid mt-3" style="max-width: 200px;">
+            </div>
+        </div>
     </div>
-@endsection
+</div>
+
+    </div>
+</body>
+
+</html>

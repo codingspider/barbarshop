@@ -12,6 +12,7 @@ class AppMiddleware
         $middleware->alias([
             'isAdmin' => \App\Http\Middleware\IsAdmin::class,
             'isUser' => \App\Http\Middleware\IsUser::class,
+            'SetLocale' => \App\Http\Middleware\SetLocale::class,
         ]);
     }
 }

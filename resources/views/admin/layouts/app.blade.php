@@ -1,72 +1,80 @@
+
 <!doctype html>
-<html lang="en">
+<html class="no-js" lang="en" dir="ltr">
 <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@yield('title')</title>
+    <link rel="icon" href="{{ asset('admin/assets/favicon.ico') }}" type="image/x-icon">
 
-        <meta name="csrf-token" content="{{ csrf_token() }}"/>
-        <title>Laravel 12 Custom Multi-Auth Login System: A Step-by-Step Guide</title>
-
-        <link rel="dns-prefetch" href="//fonts.bunny.net" >
-        <link rel="stylesheet" type="text/css" href="https://fonts.bunny.net/css?family=Nunito">
-
-        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <!-- plugin css file  -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/plugin/datatables/responsive.dataTables.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/plugin/datatables/dataTables.bootstrap5.min.css') }}"> 
+    
+    <!-- project css file  -->
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/cryptoon.style.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
 </head>
 <body>
+    <div id="cryptoon-layout" class="theme-orange">
+        
+        <!-- sidebar -->
+        @include('admin.partials.sidebar')
 
-<div id="app">
-    <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
-                {{ config('app.name', 'Laravel') }}
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <!-- main body area -->
+        <div class="main px-lg-4 px-md-4">
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <!-- Left Side Of Navbar -->
-                <ul class="navbar-nav me-auto">
+            <!-- Body: Header -->
+            @include('admin.partials.header')
 
-                </ul>
+            <!-- Body: Body -->
+            <div class="body d-flex py-3"> 
+                <div class="container-xxl">
 
-                <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    @if(Auth::guard('admin')->check())
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::guard('admin')->user()->name  }}
-                                </a>
+                    @yield('content')
 
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('admin.logout') }}"
-                                    onclick="event.preventDefault();
-                                                    document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                    @else
-                        @if (Route::has('login'))
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('admin.login') }}">{{ __('Login') }}</a>
-                        </li>
-                        @endif
-                    @endif
-                </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        
+            <!-- Modal Custom Settings-->
+            @include('admin.partials.footer')      
+            
+        </div>     
+    
+    </div>
 
-    <main class="py-4">
-        @yield('content')
-    </main>
-</div>
+    <!-- Jquery Core Js -->
+    <script src="{{ asset('admin/assets/bundles/libscripts.bundle.js') }}"></script>
+
+    <!-- Plugin Js -->
+    <script src="{{ asset('admin/assets/bundles/dataTables.bundle.js') }}"></script>
+    <script src="{{ asset('admin/assets/bundles/apexcharts.bundle.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/toastr.min.js') }}"></script>
+
+    <!-- Jquery Page Js -->
+    <script src="{{ asset('admin/assets/js/template.js') }}"></script>
+    <script src="{{ asset('admin/assets/js/page/index.js') }}"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            @if(Session::has('success'))
+                toastr.success("{{ Session::get('success') }}");
+            @endif
+
+            @if(Session::has('error'))
+                toastr.error("{{ Session::get('error') }}");
+            @endif
+
+            @if(Session::has('info'))
+                toastr.info("{{ Session::get('info') }}");
+            @endif
+
+            @if(Session::has('warning'))
+                toastr.warning("{{ Session::get('warning') }}");
+            @endif
+        });
+    </script>
 
 </body>
-</html>
+
+</html> 
