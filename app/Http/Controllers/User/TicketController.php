@@ -121,4 +121,17 @@ class TicketController extends Controller
         $tickets = Ticket::with('customer')->where('status', $status)->orderBy('id', 'desc')->paginate(10);
         return view('user.dashboard.barber_completed', compact('tickets'));
     }
+
+    public function dailyReport()
+    {
+        $tickets = Ticket::whereDate('created_at', today())->get();
+
+        return view('user.reports.tickets', [
+            'tickets' => $tickets,
+            'openTickets' => $tickets->where('status', 'open')->count(),
+            'doneTickets' => $tickets->where('status', 'done')->count(),
+            'pendingTickets' => $tickets->where('status', 'waiting')->count(),
+            'cancelledTickets' => $tickets->where('status', 'cancelled')->count(),
+        ]);
+    }
 }

@@ -76,8 +76,8 @@
                   </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/reports') ? 'active' : '' }}" href="{{ url('user/reports') }}" style="margin-right: 10px">
-                      Reports
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/ticket/report') ? 'active' : '' }}" href="{{ url('user/ticket/report') }}" style="margin-right: 10px">
+                      {{ __('messages.ticket_report') }}
                   </a>
               </li>
 

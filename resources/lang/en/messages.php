@@ -60,5 +60,11 @@ return [
     'open' =>'Open',
     'cancelled' =>'Cancelled',
     'assigned_ticket' =>'Assigned Ticket',
-    '' =>'',
+    'ticket_report' =>'Ticket Report',
+    'open_tickets' =>'Open Tickets',
+    'done_tickets' =>'Completed Tickets',
+    'pending_tickets' =>'Pending Tickets',
+    'cancelled_tickets' =>'Cancelled Tickets',
+    'ticket_details' =>'Ticket Details',
+    'print' =>'Print',
 ];

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Payment;
 use App\Models\Service;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -27,10 +29,12 @@ class AppServiceProvider extends ServiceProvider
 
         $services = Service::where('active', 1)->get();
         $customers = User::where('user_type', 'customer')->get();
+        $payments = Payment::whereDate('created_at', Carbon::today())->sum('amount');
 
         View::share([
             'services' => $services,
             'customers' => $customers,
+            'payments' => $payments,
         ]);
     }
 }

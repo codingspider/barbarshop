@@ -28,6 +28,7 @@ Route::prefix('user')->name('user.')->group(function () {
 
 
         Route::get('/status/{status}', [TicketController::class, 'barberAllAction'])->name('status-completed');
+        Route::get('/ticket/report', [TicketController::class, 'dailyReport'])->name('ticket-report');
     });
 });
 

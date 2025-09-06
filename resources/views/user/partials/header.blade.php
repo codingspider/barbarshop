@@ -39,7 +39,7 @@
         <br>
         <div class="d-none d-md-inline-block">
             <div style="font-size:13px;color:#6b7280">{{ __('messages.today_total_sales') }}</div>
-            <div style="font-size:18px;font-weight:700">$3,620.00</div>
+            <div style="font-size:18px;font-weight:700">{{ formatPrice($payments)}}</div>
         </div>
         @else
         @php
