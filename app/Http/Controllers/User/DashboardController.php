@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Ticket;
 use App\Models\Service;
@@ -64,8 +65,8 @@ class DashboardController extends Controller
     {
 
         $peopleAhead = Ticket::where('status', OrderStatus::WAITING)
-            ->where('created_at', '<', now())
-            ->count('id');
+        ->where('created_at', '<', now())
+        ->count('id');
 
         return response()->json(['success' => true, 'total' => $peopleAhead]);
     }
@@ -81,6 +82,34 @@ class DashboardController extends Controller
         ];
 
         return view('user.ticket', compact('data'));
+    }
+
+    public function ticketWaiting(){
+        try {
+            $tickets = Ticket::with('customer')->where('status', OrderStatus::WAITING)->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            $barbers = User::where('user_type', 'barber')->get();
+            return view('user.dashboard.waiting', compact('tickets', 'barbers'));
+        }catch(\Exception $e){
+            return back()->with(['error' => $e->getMessage()]);
+        }
+    }
+    
+    public function inService(){
+        try {
+            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::IN_SERVICE)->whereDate('started_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            return view('user.dashboard.inservice', compact('tickets'));
+        }catch(\Exception $e){
+            return back()->with(['error' => $e->getMessage()]);
+        }
+    }
+    
+    public function completed(){
+        try {
+            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::DONE)->whereDate('started_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            return view('user.dashboard.completed', compact('tickets'));
+        }catch(\Exception $e){
+            return back()->with(['error' => $e->getMessage()]);
+        }
     }
 
 }

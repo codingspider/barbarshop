@@ -27,17 +27,20 @@
         @endif
 
 
-        <div class="d-inline-flex gap-2 align-items-center">
+        <div class="d-inline-flex gap-2 align-items-center d-none d-md-inline-block">
             <button type="button" title="{{ __('messages.full_screen') }}" class="btn btn-sm btn-secondary"
                 id="fullscreen-btn">
                 <i class="fa fa-window-maximize fa-lg"></i>
-                <span class="d-none d-md-inline">{{ __('messages.full_screen') }}</span>
+                <span>{{ __('messages.full_screen') }}</span>
             </button>
         </div>
 
         @if(\Auth::guard('user')->user()?->user_type == 'user')
-        <div style="font-size:13px;color:#6b7280">{{ __('today_total_sales') }}</div>
-        <div style="font-size:18px;font-weight:700">$3,620.00</div>
+        <br>
+        <div class="d-none d-md-inline-block">
+            <div style="font-size:13px;color:#6b7280">{{ __('messages.today_total_sales') }}</div>
+            <div style="font-size:18px;font-weight:700">$3,620.00</div>
+        </div>
         @else
         @php
         $flags = [

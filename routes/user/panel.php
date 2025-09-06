@@ -19,6 +19,15 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/cutomer-store', [DashboardController::class, 'customerStore'])->name('customers.store');
         Route::post('/create-ticket', [TicketController::class, 'ticketStore'])->name('create-ticket');
+        Route::post('/tickets-assign', [TicketController::class, 'assignBarbar'])->name('tickets.assign');
+        Route::post('/barber-action', [TicketController::class, 'barberAction'])->name('barber.action');
+
+        Route::get('/ticket-waiting', [DashboardController::class, 'ticketWaiting'])->name('ticket-waiting');
+        Route::get('/in-service', [DashboardController::class, 'inService'])->name('in-service');
+        Route::get('/completed', [DashboardController::class, 'completed'])->name('completed');
+
+
+        Route::get('/status/{status}', [TicketController::class, 'barberAllAction'])->name('status-completed');
     });
 });
 

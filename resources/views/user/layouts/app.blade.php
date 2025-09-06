@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Barbershop POS — Static</title>
+  <title>@yield('title')</title>
   <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
@@ -30,6 +30,11 @@
     .select2-container--default .select2-selection--single{
       height: 38px;
     }
+    .nav-link.active {
+        color: #0d6efd !important; /* Bootstrap primary color */
+        font-weight: 600;
+        border-bottom: 2px solid #0d6efd; /* Highlight under active link */
+    }
   </style>
 </head>
 <body class="d-flex align-items-center justify-content-center p-3">
@@ -43,25 +48,79 @@
       <div class="mt-4">
         <ul class="nav" style="border-bottom:1px solid #eee">
           @if(\Auth::guard('user')->user()?->user_type == 'customer')
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Dashboard</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Bookings</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link active px-0 pb-2" href="#" style="color:#111;font-weight:500">Services</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Reports</a></li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}" style="margin-right: 10px">
+                      Dashboard
+                  </a>
+              </li>
+
           @elseif(\Auth::guard('user')->user()?->user_type == 'user')
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Dashboard</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Appointments</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Manage Services</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link px-0 pb-2 text-muted" href="#">Reports</a></li>
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link active px-0 pb-2" href="#" style="color:#111;font-weight:500">Services</a></li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ url('user/dashboard') }}" style="margin-right: 10px">
+                      Dashboard
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/ticket-waiting') ? 'active' : '' }}" href="{{ route('user.ticket-waiting') }}" style="margin-right: 10px">
+                      {{ __('messages.appointments') }}
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/in-service') ? 'active' : '' }}" href="{{ url('user/in-service') }}" style="margin-right: 10px">
+                      {{ __('messages.in_service') }}
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/completed') ? 'active' : '' }}" href="{{ url('user/completed') }}" style="margin-right: 10px">
+                      {{ __('messages.completed') }}
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/reports') ? 'active' : '' }}" href="{{ url('user/reports') }}" style="margin-right: 10px">
+                      Reports
+                  </a>
+              </li>
+
           @else
-          <li class="nav-item"><a style="margin-right: 10px" class="nav-link active px-0 pb-2" href="{{ url('/') }}" style="color:#111;font-weight:500">Services</a></li>
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ url('user/dashboard') }}" style="margin-right: 10px">
+                      {{ __('messages.assigned_ticket') }}
+                  </a>
+              </li>
+
+              
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/completed') ? 'active' : '' }}" href="{{ url('user/status/completed') }}" style="margin-right: 10px">
+                      {{ __('messages.completed') }}
+                  </a>
+              </li>
+              
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/open') ? 'active' : '' }}" href="{{ url('user/status/open') }}" style="margin-right: 10px">
+                      {{ __('messages.open') }}
+                  </a>
+              </li>
+              
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/done') ? 'active' : '' }}" href="{{ url('user/status/done') }}" style="margin-right: 10px">
+                      {{ __('messages.done') }}
+                  </a>
+              </li>
+              
+              <li class="nav-item">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/cancelled') ? 'active' : '' }}" href="{{ url('user/status/cancelled') }}" style="margin-right: 10px">
+                      {{ __('messages.cancelled') }}
+                  </a>
+              </li>
           @endif
-        </ul>
+      </ul>
+
       </div>
 
       <div class="row g-4 mt-2">
         <!-- left tiny column for cart icon (vertical) -->
-        @if(url()->current() != 'login')
+        @if(\Auth::guard('user')->user()->user_type == 'user')
+        @if (request()->is('/') || request()->is('user/dashboard'))
         <div class="col-auto d-none d-md-block" style="width:56px;">
           <div class="d-flex flex-column align-items-start" style="height:100%">
             <div class="position-relative" style="width:48px;height:48px;border-radius:12px;background:#ffffff;border:1px solid #e0e0e0;display:flex;justify-content:center;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.1);cursor:pointer;transition:all 0.3s ease;">
@@ -72,7 +131,7 @@
             </div>
           </div>
         </div>
-
+        @endif
         @endif
 
         @yield('content')

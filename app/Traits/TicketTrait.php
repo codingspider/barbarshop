@@ -14,7 +14,6 @@ trait TicketTrait {
             'ticket_no' => $this->generateTicketNo(),
             'customer_id' => $customer_id,
             'status' => OrderStatus::WAITING,
-            'requested_at'  => now(),
             'created_at' => now()
         ]);
 
