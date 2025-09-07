@@ -2,9 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\BaberController;
+use App\Http\Controllers\Admin\AddonsController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\CurrencyController;
 use App\Http\Controllers\Auth\Admin\LoginController;
+use App\Http\Controllers\Admin\ApplicationSettingController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
 
 // Admin routes
@@ -20,6 +23,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('currencies', CurrencyController::class);
         Route::resource('services', ServiceController::class);
+        Route::resource('addons', AddonsController::class);
         Route::resource('users', UserController::class);
+        Route::resource('barbers', BaberController::class);
+
+        Route::get('app-management', [ApplicationSettingController::class, 'index'])->name('app-management');
+
+        Route::put('setting-update', [ApplicationSettingController::class, 'update'])->name('settings.update');
     });
 });

@@ -1,12 +1,13 @@
 <div class="d-flex align-items-center">
     <div class="d-flex align-items-center">
-        <div class="rounded-circle d-flex align-items-center justify-content-center"
-            style="width:36px;height:36px;background:#f3f4f6;border:1px solid #ececec;margin-right:12px">
-            🏠
+        <div class="rounded-circle d-flex align-items-center justify-content-center">
+            @if($siteLogo)
+                <img src="{{ $siteLogo }}" alt="Site Logo" height="30">
+            @endif
         </div>
-        <div>
-            <div style="font-size:14px;font-weight:700">THE MODERN MAN</div>
-            <div style="font-size:11px;letter-spacing:0.08em;color:#6b7280">BARGERSHOP</div>
+        <div class="ms-2">
+            <div style="font-size:14px; font-weight:700;">{{ env('APP_NAME') }}</div>
+            <div style="font-size:11px; letter-spacing:0.08em; color:#6b7280;">BARGERSHOP</div>
         </div>
     </div>
     <div class="flex-grow-1"></div>

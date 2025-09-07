@@ -1,6 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\CartController;
+use App\Http\Controllers\User\FrontController;
 use App\Http\Controllers\User\TicketController;
 use App\Http\Controllers\User\DashboardController;
 
@@ -18,17 +19,32 @@ Route::prefix('user')->name('user.')->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/cutomer-store', [DashboardController::class, 'customerStore'])->name('customers.store');
-        Route::post('/create-ticket', [TicketController::class, 'ticketStore'])->name('create-ticket');
+        Route::get('/create-ticket', [TicketController::class, 'ticketStore'])->name('create-ticket');
         Route::post('/tickets-assign', [TicketController::class, 'assignBarbar'])->name('tickets.assign');
         Route::post('/barber-action', [TicketController::class, 'barberAction'])->name('barber.action');
+
+        Route::get('/payment/receive', [DashboardController::class, 'paymentReceive'])->name('payment-receive');
+        Route::post('/make/ticket/payment', [DashboardController::class, 'makePayment'])->name('make-payment');
 
         Route::get('/ticket-waiting', [DashboardController::class, 'ticketWaiting'])->name('ticket-waiting');
         Route::get('/in-service', [DashboardController::class, 'inService'])->name('in-service');
         Route::get('/completed', [DashboardController::class, 'completed'])->name('completed');
 
-
         Route::get('/status/{status}', [TicketController::class, 'barberAllAction'])->name('status-completed');
         Route::get('/ticket/report', [TicketController::class, 'dailyReport'])->name('ticket-report');
+        Route::get('/all/services', [TicketController::class, 'allServices'])->name('all-services');
+        Route::get('/cancell-ticket/{id}', [TicketController::class, 'cancellTicket'])->name('cancell-ticket');
+
+        
+        Route::get('/get-ticket-details/{id}', [DashboardController::class, 'getTicketDetails'])->name('get-ticket-details');
+
+
+
+        Route::get('step-one', [FrontController::class, 'stepOne'])->name('step-one');
+        Route::get('step-two', [FrontController::class, 'stepTwo'])->name('step-two');
+        Route::get('step-three', [FrontController::class, 'stepThree'])->name('step-three');
+        Route::get('step-four/{id}', [FrontController::class, 'stepFour'])->name('step-four');
+        Route::get('step-five/{id}', [FrontController::class, 'stepFive'])->name('step-five');
     });
 });
 

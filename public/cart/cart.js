@@ -1,22 +1,7 @@
 $(document).ready(function(){
-loadProducts();
-updateCartSummary();
-updateCartTable();
 
-function loadProducts() {
-    $.ajax({
-        url: '/products',
-        method: 'GET',
-        dataType: 'html',
-        success: function(products) {
-            $('#products-container').html(products);
-        },
-        error: function(err) {
-            console.error(err);
-            $('#products-container').html('<div class="col-12 text-center text-danger">Failed to load products</div>');
-        }
-    });
-}
+updateCartSummary();
+
 
 $.ajaxSetup({
     headers: {
@@ -40,9 +25,6 @@ $(document).on('click', '.btn-add-to-cart', function(e) {
         btn.removeClass('btn-primary btn-add-to-cart')
            .addClass('btn-danger');
 
-        updateCartSummary();
-        updateCartTable();
-
     });
 });
 
@@ -59,7 +41,7 @@ $(document).on('click', '.btn-remove-cart', function(e) {
             btn.removeClass('btn-danger btn-remove-cart')
                .addClass('btn-primary btn-add-to-cart')
                .text('Book');
-            updateCartTable();
+            
         } else {
             toastr.error(res.message);
         }
@@ -86,7 +68,7 @@ $(document).on('click', '.btn-remove-cart', function () {
     $.post('/cart/remove', { rowId }, function (res) {
         console.log("Removed:", res);
         updateCartSummary(res);
-        updateCartTable();
+        
     });
 });
 
@@ -102,16 +84,13 @@ $('#cart-table').on('click', '.btn-remove', function() {
             $('#cart-table tbody').empty();
             toastr.success('Item removed');
             updateCartSummary(res);
-            updateCartTable();
+            
         }
     });
 });
 
 // Refresh totals
 function updateCartSummary(res) {
-    // res.cart is the full content
-    loadProducts();
-
     $.get('/cart/total', function (data) {
         $('.cart-total').text(data.total);
     });
@@ -125,93 +104,6 @@ function updateCartSummary(res) {
     });
 }
 
-// Fetch and display cart
-function updateCartTable(res) {
-        $.getJSON('/cart/content', function(response) {
-        var $tbody = $('#cart-table tbody');
-        $tbody.empty();
-
-        if (!response.cart.length) {
-            $tbody.append(`
-                <tr>
-                    <td colspan="2" class="text-center text-muted">Your cart is empty</td>
-                </tr>
-            `);
-            return;
-        }
-
-        response.cart.forEach(function(item) {
-            var row = `
-                <tr data-id="${item.id}">
-                    <td>${item.name}</td>
-                    <td class="text-center">
-                        <button class="btn btn-sm btn-danger btn-remove" data-id="${item.id}">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-            `;
-            $tbody.append(row);
-        });
-    });
-}
-
-// store order records 
-$('#submitCartBtn').click(function(e) {
-        e.preventDefault();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            url: "/user/create-ticket",
-            type: "POST",
-            data: $('#cartForm').serialize(),
-            success: function(response) {
-                if(response.success){
-                    toastr.success(response.message);
-                    $('#cartForm')[0].reset();
-                      printTicket(response.ticket_id);
-                }
-                loadProducts();
-                updateCartSummary();
-                updateCartTable();
-              
-            },
-            error: function(xhr) {
-                if(xhr.responseJSON && xhr.responseJSON.message){
-                    toastr.error(xhr.responseJSON.message);
-                } else if(xhr.responseJSON && xhr.responseJSON.errors){
-                    let errors = xhr.responseJSON.errors;
-                    let errorMsg = '';
-                    $.each(errors, function(key, value){
-                        errorMsg += value + '<br>';
-                    });
-                    toastr.error(errorMsg);
-                } else {
-                    toastr.error('Something went wrong.');
-                }
-            }
-        });
-});
-
-// print ticktes 
-function printTicket(id){
-    $.ajax({
-        url: "/user/generate-ticket/"+ id,
-        method: "GET",
-        success: function(html) {
-            let printWindow = window.open('', '_blank');
-            printWindow.document.write(html);
-            printWindow.document.close();
-            printWindow.focus();
-            printWindow.print();
-        }
-    });
-}
 
 // get ahead people 
 function getWaitingCustomers() {

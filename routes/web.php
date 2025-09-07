@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Session;
 
 
 
-Route::middleware(['SetLocale'])->group(function () {
+Route::middleware(['SetLocale', 'isUser'])->group(function () {
     Route::get('/', function () {
         return view('user.home');
     });

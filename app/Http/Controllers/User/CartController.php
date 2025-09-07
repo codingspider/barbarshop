@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 
 class CartController extends Controller
@@ -11,7 +12,7 @@ class CartController extends Controller
     // Add item to cart
     public function addToCart(Request $request)
     {
-
+        Cart::destroy();
         $item = Cart::add([
             'id'      => $request->id,
             'name'    => $request->name,
@@ -20,6 +21,8 @@ class CartController extends Controller
             'weight'  => 0,
             'options' => $request->options ?? [],
         ]);
+
+        Session::put('service_id', $request->id);
 
         return response()->json(['success' => true, 'item' => $item, 'cart' => Cart::content()]);
     }

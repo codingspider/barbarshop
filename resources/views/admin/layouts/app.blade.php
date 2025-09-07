@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@yield('title')</title>
-    <link rel="icon" href="{{ asset('admin/assets/favicon.ico') }}" type="image/x-icon">
+    @if($siteFavicon)
+    <link rel="icon" href="{{ $siteFavicon }}" type="image/png">
+    @endif
 
     <!-- plugin css file  -->
     <link rel="stylesheet" href="{{ asset('admin/assets/plugin/datatables/responsive.dataTables.min.css') }}">

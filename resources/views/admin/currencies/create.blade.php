@@ -1,5 +1,5 @@
 @extends('admin.layouts.app')
-
+@section('title', 'Add Currency')
 @section('content')
 <div class="container">
     <div class="card shadow-sm border-0 rounded-4">

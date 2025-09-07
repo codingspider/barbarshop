@@ -4,7 +4,7 @@
 <div class="container">
     <div class="card shadow-sm border-0 rounded-4">
         <div class="card-header d-flex justify-content-between align-items-center">
-            <h3 class="mb-0">{{ __('messages.services') }}</h3>
+            <h3 class="mb-0">{{ __('messages.addons') }}</h3>
             <a href="{{ route('admin.services.index') }}" class="btn btn-primary">{{ __('messages.list') }}</a>
         </div>
 
@@ -19,10 +19,9 @@
                 </div>
             @endif
 
-            <form action="{{ isset($service) ? route('admin.services.update', $service) : route('admin.services.store') }}"
-                method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.addons.update', $service->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                @if(isset($service)) @method('PUT') @endif
+                @method('PUT')
 
                 <div class="mb-3">
                     <label>{{ __('messages.name') }}</label>
@@ -34,12 +33,6 @@
                     <label>{{ __('messages.price') }}</label>
                     <input type="text" name="price" class="form-control" value="{{ $service->price ?? old('price') }}"
                         required>
-                </div>
-
-                <div class="mb-3">
-                    <label>{{ __('messages.duration') }}</label>
-                    <input type="text" name="duration_minutes" class="form-control"
-                        value="{{ $service->duration_minutes ?? old('duration_minutes') }}">
                 </div>
 
                 <div class="mb-3">

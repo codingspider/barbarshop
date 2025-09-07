@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Enums\OrderStatus;
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use App\Models\Ticket;
+use App\Enums\OrderStatus;
 use App\Traits\OrderTrait;
 use App\Traits\TicketTrait;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
@@ -20,25 +21,12 @@ class TicketController extends Controller
 
     public function ticketStore(Request $request)
     {
-        // Create validator
-        $validator = Validator::make($request->all(), [
-            'customer_id' => 'required',
-        ]);
-
-        // Handle validation failure
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
         DB::beginTransaction();
         try {
             $cartTotal = Cart::total();
             $cartItems = Cart::content();
             $cartSubtotal = Cart::subtotal();
-            $customer_id = $request->customer_id;
+            $customer_id = 6;
 
             $ticket = $this->createTicket($customer_id);
             $order = $this->createOrder($customer_id, $ticket, $cartTotal, $cartSubtotal);
@@ -46,7 +34,7 @@ class TicketController extends Controller
             Cart::destroy();
             DB::commit();
 
-            return response()->json(['success' => true, 'ticket_id' => $ticket->id,'message' => 'Ticket created successfully !']);
+            return view('front.step_six', compact('ticket'));
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
@@ -94,7 +82,7 @@ class TicketController extends Controller
 
             if($ticket){
                 if($request->status == 'open'){
-                    $ticket->status = OrderStatus::OPEN;
+                    $ticket->status = OrderStatus::IN_SERVICE;
                     $ticket->started_at = now();
                 }elseif($request->status == 'done'){
                     $ticket->status = OrderStatus::DONE;
@@ -118,7 +106,13 @@ class TicketController extends Controller
 
     public function barberAllAction($status){
         $id = Auth::guard('user')->user()->id;
-        $tickets = Ticket::with('customer')->where('status', $status)->orderBy('id', 'desc')->paginate(10);
+        $tickets = Ticket::with('customer')->where('status', $status)->whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->paginate(10);
+        return view('user.dashboard.barber_completed', compact('tickets'));
+    }
+    
+    public function allServices(){
+        $id = Auth::guard('user')->user()->id;
+        $tickets = Ticket::with('customer')->orderBy('id', 'desc')->paginate(10);
         return view('user.dashboard.barber_completed', compact('tickets'));
     }
 
@@ -133,5 +127,10 @@ class TicketController extends Controller
             'pendingTickets' => $tickets->where('status', 'waiting')->count(),
             'cancelledTickets' => $tickets->where('status', 'cancelled')->count(),
         ]);
+    }
+
+
+    public function cancellTicket($id){
+        dd($id);
     }
 }

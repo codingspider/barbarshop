@@ -12,7 +12,6 @@ if (!function_exists('formatPrice')) {
         if ($currency === null) {
             $currency = \App\Models\Currency::where('is_default', 1)->first();
         }
-
         return $currency ? $currency->symbol . '' . number_format($price, 2) : $price;
     }
 }
