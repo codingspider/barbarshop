@@ -5,11 +5,15 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 
-
-Route::middleware(['SetLocale', 'isUser'])->group(function () {
+Route::middleware(['SetLocale'])->group(function () {
     Route::get('/', function () {
         return view('user.home');
-    });
+    })->name('web.home');
+});
+
+
+Route::middleware(['SetLocale', 'isUser'])->group(function () {
+
 
     Route::get('lang/{locale}', function ($locale) {
         if (in_array($locale, ['en', 'ar', 'fr'])) {

@@ -59,6 +59,8 @@ return [
     'close' =>'Close',
     'open' =>'Open',
     'cancelled' =>'Cancelled',
+    'cancel' =>'Cancel',
+    'accept' =>'Accept',
     'assigned_ticket' =>'Assigned Ticket',
     'ticket_report' =>'Ticket Report',
     'open_tickets' =>'Open Tickets',
@@ -86,4 +88,7 @@ return [
     'choose_barber' =>'Choose Barber',
     'barbers' =>'Barbers',
     'addons' =>'Addons',
+    'min' =>'Min',
+    'order' =>'Click to order',
+    'data_not_found' =>'Data not found !',
 ];

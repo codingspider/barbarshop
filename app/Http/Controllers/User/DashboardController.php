@@ -19,8 +19,10 @@ use Illuminate\Support\Facades\Session;
 class DashboardController extends Controller
 {
     public function index(Request $request){
-        $data = [];
-        return view("user.dashboard", $data);
+        $id =  Auth::guard('user')->user()->id;
+        $tickets = Ticket::with('customer')->where('status', OrderStatus::WAITING)->whereDate('created_at', Carbon::today())->where('assigned_barber_id', $id)->orderBy('id', 'asc')->paginate(10);
+
+        return view("user.dashboard", compact('tickets'));
     }
     
     // public function ticketPrint(Request $request){
@@ -99,7 +101,7 @@ class DashboardController extends Controller
     
     public function inService(){
         try {
-            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::IN_SERVICE)->whereDate('started_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::IN_SERVICE)->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
             return view('user.dashboard.inservice', compact('tickets'));
         }catch(\Exception $e){
             return back()->with(['error' => $e->getMessage()]);
@@ -108,7 +110,7 @@ class DashboardController extends Controller
     
     public function completed(){
         try {
-            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::DONE)->whereDate('started_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::COMPLETED)->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
             return view('user.dashboard.completed', compact('tickets'));
         }catch(\Exception $e){
             return back()->with(['error' => $e->getMessage()]);

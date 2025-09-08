@@ -38,13 +38,12 @@ Route::prefix('user')->name('user.')->group(function () {
         
         Route::get('/get-ticket-details/{id}', [DashboardController::class, 'getTicketDetails'])->name('get-ticket-details');
 
-
-
         Route::get('step-one', [FrontController::class, 'stepOne'])->name('step-one');
         Route::get('step-two', [FrontController::class, 'stepTwo'])->name('step-two');
         Route::get('step-three', [FrontController::class, 'stepThree'])->name('step-three');
         Route::get('step-four/{id}', [FrontController::class, 'stepFour'])->name('step-four');
         Route::get('step-five/{id}', [FrontController::class, 'stepFive'])->name('step-five');
+        Route::get('step-six/{id}', [FrontController::class, 'stepSix'])->name('step-six');
     });
 });
 

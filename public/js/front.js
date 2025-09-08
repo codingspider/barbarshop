@@ -130,6 +130,8 @@ $(document).ready(function() {
             success: function(res) {
                 $('#content-body').html(res);
                 $('.cart_count').hide();
+                printTicket(res.id);
+                stepSix(res.id);
             },
             error: function(err) {
                 console.error(err);
@@ -138,6 +140,24 @@ $(document).ready(function() {
         });
 
     });
+
+    function stepSix (id) {
+        $.ajax({
+            url: '/user/step-six/'+id,
+            method: 'GET',
+            dataType: 'html',
+            success: function(res) {
+                $('#content-body').html(res);
+                setTimeout(function() {
+                    window.location.href = "/";
+                }, 5000);
+            },
+            error: function(err) {
+                console.error(err);
+                $('#content-body').html('<div class="col-12 text-center text-danger">Failed to load section </div>');
+            }
+        });
+    }
 
     // print ticktes 
     function printTicket(id){

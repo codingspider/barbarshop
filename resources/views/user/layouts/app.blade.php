@@ -4,63 +4,116 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>@yield('title')</title>
-    @if($siteFavicon)
-    <link rel="icon" href="{{ $siteFavicon }}" type="image/png">
-    @endif
+  @if($siteFavicon)
+  <link rel="icon" href="{{ $siteFavicon }}" type="image/png">
+  @endif
   <link href="{{ asset('admin/assets/css/bootstrap.min.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('admin/assets/css/toastr.min.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.13.1/font/bootstrap-icons.min.css">
-  <script src="{{ asset('admin/assets/js/screenfull.min.js') }}"  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="{{ asset('admin/assets/js/screenfull.min.js') }}" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <link href="{{ asset('admin/assets/css/select2.min.css') }}" rel="stylesheet" />
   @stack('extra_css')
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <style>
-    :root{--panel-w:1100px;}
-    body{background:#fafafa;}
-    /* Tablet-like frame similar to reference */
-
-    .inner-pad{background:#fff;border-radius:14px;padding:18px;}
-    .service-card{border-radius:12px;overflow:hidden;border:1px solid #eee;background:#fff}
-    .service-card img{width:100%;height:140px;object-fit:cover;display:block}
-    .service-body{padding:10px 12px}
-    .service-title{font-size:15px;font-weight:600;color:#111}
-    .service-price{font-size:13px;color:#6b7280}
-    .small-ghost{border-radius:12px;border:1px solid #eee;padding:14px}
-    .right-col .small-ghost{background:#fff}
-    .vertical-left{position:absolute;left:36px;top:120px}
-    /* make layout stable */
-    
-    @media (max-width:1160px){:root{--panel-w:980px}}
-    .select2-container--default .select2-selection--single{
-      height: 38px;
+    :root {
+        --panel-w: 1100px; 
     }
-    .nav-link.active {
-        color: #0d6efd !important; 
+
+    body {
+        background: #fafafa;
+    }
+
+    /* Main responsive container */
+.main-wrapper {
+    width: 1100px; /* Fixed width for desktop */
+    margin: 0 auto; /* Center horizontally */
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+}
+
+/* Tablet view */
+@media (max-width: 1024px) {
+    .main-wrapper {
+        width: 900px; /* Fixed width for tablet */
+        padding: 16px;
+    }
+}
+
+/* Mobile view */
+@media (max-width: 768px) {
+    .main-wrapper {
+        width: 100%; /* Full width on mobile */
+        padding: 12px;
+        border-radius: 10px;
+    }
+}
+
+
+    .service-card {
+        border-radius: 12px;
+        overflow: hidden;
+        border: 1px solid #eee;
+        background: #fff;
+    }
+
+    .service-card img {
+        width: 100%;
+        height: 140px;
+        object-fit: cover;
+        display: block;
+    }
+
+    .service-body {
+        padding: 10px 12px;
+    }
+
+    .service-title {
+        font-size: 15px;
         font-weight: 600;
-        border-bottom: 2px solid #0d6efd; 
+        color: #111;
+    }
+
+    .service-price {
+        font-size: 13px;
+        color: #6b7280;
+    }
+
+    .small-ghost {
+        border-radius: 12px;
+        border: 1px solid #eee;
+        padding: 14px;
+    }
+
+    .right-col .small-ghost {
+        background: #fff;
+    }
+
+    .nav-link.active {
+        color: #0d6efd !important;
+        font-weight: 600;
+        border-bottom: 2px solid #0d6efd;
     }
   </style>
 </head>
-<body class="d-flex align-items-center justify-content-center p-3 tablet-frame">
+<body class="d-flex align-items-center justify-content-center p-3">
   <div class="position-relative device-frame">
-    <div class="inner-pad">
-      <!-- Top bar -->
+    <div class="main-wrapper">
       @include('user.customer_modal')
       @include('user.partials.header')
 
-      <!-- Tabs -->
+      <!-- Navigation -->
       <div class="mt-4">
-        <ul class="nav" style="border-bottom:1px solid #eee">
+        <ul class="nav justify-content-center flex-wrap" style="border-bottom:1px solid #eee">
           @if(\Auth::guard('user')->user()?->user_type == 'customer')
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}" style="margin-right: 10px">
                       Dashboard
                   </a>
               </li>
-
           @elseif(\Auth::guard('user')->user()?->user_type == 'user')
               <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ url('user/dashboard') }}" style="margin-right: 10px">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}" style="margin-right: 10px">
                       Dashboard
                   </a>
               </li>
@@ -74,69 +127,53 @@
                       {{ __('messages.in_service') }}
                   </a>
               </li>
-
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/completed') ? 'active' : '' }}" href="{{ url('user/completed') }}" style="margin-right: 10px">
                       {{ __('messages.completed') }}
                   </a>
               </li>
-              
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/payment/receive') ? 'active' : '' }}" href="{{ url('user/payment/receive') }}" style="margin-right: 10px">
                       {{ __('messages.payment_receive') }}
                   </a>
               </li>
-
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/ticket/report') ? 'active' : '' }}" href="{{ url('user/ticket/report') }}" style="margin-right: 10px">
                       {{ __('messages.ticket_report') }}
                   </a>
               </li>
-
           @elseif(\Auth::guard('user')->user()?->user_type == 'barber')
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ url('user/dashboard') }}" style="margin-right: 10px">
                       {{ __('messages.assigned_ticket') }}
                   </a>
               </li>
-
-              
-              <!-- <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/completed') ? 'active' : '' }}" href="{{ url('user/status/completed') }}" style="margin-right: 10px">
-                      {{ __('messages.completed') }}
-                  </a>
-              </li>
-               -->
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/in_service') ? 'active' : '' }}" href="{{ url('user/status/in_service') }}" style="margin-right: 10px">
                       {{ __('messages.in_service') }}
                   </a>
               </li>
-              
               <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/done') ? 'active' : '' }}" href="{{ url('user/status/done') }}" style="margin-right: 10px">
+                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/completed') ? 'active' : '' }}" href="{{ url('user/status/completed') }}" style="margin-right: 10px">
                       {{ __('messages.completed') }}
                   </a>
               </li>
-              
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/cancelled') ? 'active' : '' }}" href="{{ url('user/status/cancelled') }}" style="margin-right: 10px">
                       {{ __('messages.cancelled') }}
                   </a>
               </li>
-              
               <li class="nav-item">
                   <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/all/services') ? 'active' : '' }}" href="{{ url('user/all/services') }}" style="margin-right: 10px">
                       {{ __('messages.all_services') }}
                   </a>
               </li>
           @endif
-      </ul>
-
+        </ul>
       </div>
 
       <div class="row g-4 mt-2">
-        <!-- left tiny column for cart icon (vertical) -->
+        <!-- Cart column -->
         <div class="col-auto cart_count" style="width:56px; display:none">
           <div class="d-flex flex-column align-items-start" style="height:100%">
             <div class="position-relative" style="width:48px;height:48px;border-radius:12px;background:#ffffff;border:1px solid #e0e0e0;display:flex;justify-content:center;align-items:center;box-shadow:0 2px 6px rgba(0,0,0,0.1);cursor:pointer;transition:all 0.3s ease;">
@@ -148,10 +185,10 @@
           </div>
         </div>
         @yield('content')
-
       </div>
     </div>
   </div>
+
   <script src="{{ asset('admin/assets/js/jquery-3.7.1.min.js') }}"></script>
   <script src="{{ asset('admin/assets/js/bootstrap.bundle.min.js') }}"></script>
   <script src="{{ asset('admin/assets/js/toastr.min.js') }}"></script>
@@ -159,7 +196,6 @@
   <script src="{{ asset('cart/cart.js') }}"></script>
   <script src="{{ asset('cart/app.js') }}"></script>
   <script src="{{ asset('js/front.js') }}"></script>
-
   @stack('extra_js')
 <script>
 $(document).ready(function(){
@@ -172,10 +208,8 @@ $(document).ready(function(){
             console.log('Fullscreen API not enabled in this browser.');
         }
     });
-
     $('.select2').select2();
 });
-
 </script>
 </body>
 </html>

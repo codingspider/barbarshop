@@ -19,10 +19,10 @@ class Ticket extends Model
         return $this->belongsTo(User::class, 'assigned_barber_id');
     }
 
-    // public function service()
-    // {
-    //     return $this->belongsTo(Service::class, 'selected_service_id');
-    // }
+    public function service()
+    {
+        return $this->belongsTo(Service::class, 'selected_service_id');
+    }
 
     public function order()
     {

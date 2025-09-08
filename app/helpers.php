@@ -2,6 +2,7 @@
 
 use Carbon\Carbon;
 use App\Models\Ticket;
+use App\Models\Service;
 use App\Enums\OrderStatus;
 use Illuminate\Support\Facades\Auth;
     
@@ -29,5 +30,31 @@ if (!function_exists('getBarberTickets')) {
         $id = Auth::guard('user')->user()->id;
         $tickets = Ticket::with('customer')->whereIn('status', [OrderStatus::ASSIGNED, OrderStatus::OPEN])->whereDate('requested_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
         return $tickets;
+    }
+}
+
+if (!function_exists('getBarberSchedule')) {
+    function getBarberSchedule($barberId)
+    {
+        // Get waiting tickets for this barber
+        $tickets = Ticket::query()
+            ->where('assigned_barber_id', $barberId)
+            ->where('status', 'waiting')
+            ->get();
+
+        // Extract service IDs
+        $serviceIds = $tickets->pluck('selected_service_id')->toArray();
+
+        // Sum service durations
+        $sum = 0;
+        foreach($serviceIds as $id){
+            $totalDuration = Service::where('id', $id)->first();
+            $sum += $totalDuration->duration_minutes;
+        }
+
+        return [
+            'waiting' => $tickets->count(),
+            'time'    => $sum
+        ];
     }
 }

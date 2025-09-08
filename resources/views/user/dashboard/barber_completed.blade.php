@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($tickets as $ticket)
+                @forelse ($tickets as $ticket)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $ticket->customer?->name }}</td>
@@ -23,7 +23,11 @@
                     <td>{{ $ticket->created_at }}</td>
                     <td>{!! $ticket->statusBadge() !!}</td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5">{{ __('messages.data_not_found') }}</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

@@ -20,10 +20,19 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
+    protected $redirectTo = '/login';
+
     /**
      * Where to redirect users after resetting their password.
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected function resetPassword($user, $password)
+    {
+        $user->password = bcrypt($password);
+        $user->save();
+
+        // Do NOT log the user in
+        // Auth::login($user); // Remove or comment this line
+    }
 }

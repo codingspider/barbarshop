@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('ticket_no')->unique();
             $table->foreignId('customer_id')->nullable()->constrained('users')->cascadeOnDelete();
             // $table->foreignId('selected_service_id')->nullable()->constrained('services')->cascadeOnDelete();
-            $table->enum('status', ['waiting','assigned','in_service','done','cancelled', 'open'])->default('waiting');
+            $table->enum('status', ['waiting','assigned','in_service','done','cancelled', 'open', 'completed'])->default('waiting');
             $table->foreignId('assigned_barber_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->timestamp('requested_at')->nullable();
             $table->timestamp('started_at')->nullable();

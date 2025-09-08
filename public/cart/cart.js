@@ -105,25 +105,6 @@ function updateCartSummary(res) {
 }
 
 
-// get ahead people 
-function getWaitingCustomers() {
-    $.ajax({
-        url: '/get-waiting-customers',
-        method: 'GET',
-        success: function(res) {
-            $('#ahead_people').text(res.total);
-        },
-        error: function(err) {
-            console.error(err);
-        }
-    });
-}
-
-// Call immediately on page load
-getWaitingCustomers();
-
-// Call every 10 seconds (10000 ms)
-setInterval(getWaitingCustomers, 10000);
 
 
 });

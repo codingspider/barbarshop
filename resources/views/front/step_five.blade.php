@@ -10,7 +10,9 @@
                     style="width: 100%; pointer-events: none;">
 
                 <div class="service-body mt-2">
-                    <div class="service-title">{{ $service->name }}</div>
+                    <div class="service-title">
+                        <span>{{ $service->name }}, {{ $service->addon_name }}</span>
+                    </div>
                     <div class="d-flex justify-content-between align-items-center mt-2">
                         <div class="service-price mb-0">{{ formatPrice($service->price) }}</div>
                     </div>
@@ -27,10 +29,10 @@
         <form action="#" id="cartForm">
             <!-- queue card -->
             <div class="small-ghost text-center">
-                <div style="font-size:34px;font-weight:700"><span id="ahead_people">0</span></div>
+                <div style="font-size:34px;font-weight:700"><span id="ahead_people">{{ $datas['waiting']}}</span></div>
                 <div style="margin-top:6px;color:#6b7280;font-size:14px"><strong>{{ __('messages.people') }}</strong>
                     {{ __('messages.ahead') }}</div>
-                <div style="margin-top:12px;color:#9ca3af">{{ __('approx') }}, 25 min</div>
+                <div style="margin-top:12px;color:#9ca3af">{{ __('approx') }}, {{ $datas['time']}} {{ __('messages.min')}}</div>
             </div>
 
             <!-- order summary -->

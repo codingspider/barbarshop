@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Support\Facades\Validator;
 
@@ -26,7 +27,7 @@ class TicketController extends Controller
             $cartTotal = Cart::total();
             $cartItems = Cart::content();
             $cartSubtotal = Cart::subtotal();
-            $customer_id = 6;
+            $customer_id = Auth::guard('user')->user()->id;
 
             $ticket = $this->createTicket($customer_id);
             $order = $this->createOrder($customer_id, $ticket, $cartTotal, $cartSubtotal);
@@ -34,7 +35,8 @@ class TicketController extends Controller
             Cart::destroy();
             DB::commit();
 
-            return view('front.step_six', compact('ticket'));
+            return response()->json(['success' => true, 'id' => $ticket->id ]);
+           
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
@@ -84,8 +86,8 @@ class TicketController extends Controller
                 if($request->status == 'open'){
                     $ticket->status = OrderStatus::IN_SERVICE;
                     $ticket->started_at = now();
-                }elseif($request->status == 'done'){
-                    $ticket->status = OrderStatus::DONE;
+                }elseif($request->status == 'completed'){
+                    $ticket->status = OrderStatus::COMPLETED;
                     $ticket->finished_at = now();
                 }else{
                     $ticket->status = OrderStatus::CANCELLED;
@@ -97,7 +99,7 @@ class TicketController extends Controller
 
             DB::commit();
 
-           return redirect()->back()->with('success', 'Barber assigned successfully.');
+           return redirect()->back()->with('success', 'Action completed successfully.');
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
@@ -131,6 +133,11 @@ class TicketController extends Controller
 
 
     public function cancellTicket($id){
-        dd($id);
+        $ticket = Ticket::find($id);
+        if($ticket){
+            $ticket->status = OrderStatus::CANCELLED;
+            $ticket->save();
+        }
+        return redirect()->route('home');
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\User;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Addon;
+use App\Models\Ticket;
 use App\Models\Service;
+use App\Enums\OrderStatus;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
@@ -36,10 +39,27 @@ class FrontController extends Controller
     public function stepFive($addon_id){
         $firstItem = Cart::content()->first();
         $rowId = $firstItem->rowId;
-        Cart::update($rowId, ['options'  => ['addon' => $addon_id]]);
+        $addonPrice = Addon::where('id', $addon_id)->first()->price;
+        Cart::update($rowId, [
+            'options' => [
+                'addon_id' => $addon_id,
+                'addon_price' => $addonPrice
+            ]
+        ]);
         $addons = Addon::where('active', 1)->get();
         $services = Service::where('active', 1)->get();
         $carts = Cart::content();
-        return view('front.step_five', compact('addons'));
+        $barber_id = Session::get('barber_id');
+        $datas = getBarberSchedule($barber_id);
+        return view('front.step_five', compact('addons', 'datas'));
+    }
+
+
+    public function stepSix($id){
+        $barber_id = Session::get('barber_id');
+        $datas = getBarberSchedule($barber_id);
+        $ticket = Ticket::find($id);
+        $tickets = Ticket::with('service')->where('status', OrderStatus::WAITING)->whereDate('created_at', Carbon::today())->where('assigned_barber_id', $barber_id)->orderBy('id', 'asc')->take(3)->get();
+        return view('front.step_six', compact('datas', 'tickets', 'ticket'));
     }
 }

@@ -1,7 +1,7 @@
 @extends('user.layouts.app')
 @section('title', __('messages.completed'))
 @section('content')
-<div class="container">
+<div class="container" style="min-width: 800px">
     <h2 class="mb-4">{{  __('messages.completed') }}</h2>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-hover">

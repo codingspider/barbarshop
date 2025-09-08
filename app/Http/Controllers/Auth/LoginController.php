@@ -28,7 +28,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('user')->attempt($credentials, $request->get('remember'))) {
-            return redirect()->route('user.dashboard')->with('success','You are Logged in sucessfully.');
+            return redirect()->route('web.home')->with('success','You are Logged in sucessfully.');
         }
         else {
             return back()->with('error','Whoops! invalid email and password.');

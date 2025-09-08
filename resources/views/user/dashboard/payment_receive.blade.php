@@ -1,9 +1,8 @@
 @extends('user.layouts.app')
 @section('title', 'Payment Receive')
 @section('content')
- <div class="container">
+ <div class="container" style="min-width: 800px">
         <h2 class="mb-4 text-center">Receive Payment</h2>
-
         <!-- Payment Form -->
         <div class="card shadow-sm mb-5">
             <div class="card-body">
