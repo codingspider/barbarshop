@@ -20,7 +20,7 @@ class DashboardController extends Controller
 {
     public function index(Request $request){
         $id =  Auth::guard('user')->user()->id;
-        $tickets = Ticket::with('customer')->where('status', OrderStatus::WAITING)->whereDate('created_at', Carbon::today())->where('assigned_barber_id', $id)->orderBy('id', 'asc')->paginate(10);
+        $tickets = Ticket::with('customer')->where('status', OrderStatus::WAITING)->where('assigned_barber_id', $id)->orderBy('id', 'asc')->paginate(10);
 
         return view("user.dashboard", compact('tickets'));
     }

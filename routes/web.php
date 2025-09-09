@@ -3,28 +3,35 @@
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LanguageController;
 
 
 Route::middleware(['SetLocale'])->group(function () {
-    Route::get('/', function () {
-        return view('user.home');
-    })->name('web.home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
 });
 
+Route::get('lang', [LanguageController::class, 'change'])->name("change.lang");
 
-Route::middleware(['SetLocale', 'isUser'])->group(function () {
+Route::get('/clear-all-cache', function () {
+    // Clear application cache
+    \Artisan::call('cache:clear');
 
+    // Clear config cache
+    \Artisan::call('config:clear');
 
-    Route::get('lang/{locale}', function ($locale) {
-        if (in_array($locale, ['en', 'ar', 'fr'])) {
-            session(['locale' => $locale]);
-            Session::put('locale', $locale);
-            App::setLocale($locale);
-        }
-        $currentLocale = app()->getLocale();
-        return redirect()->back();
-    })->name('lang.switch');
-});
+    // Clear route cache
+    \Artisan::call('route:clear');
+
+    // Clear compiled views
+    \Artisan::call('view:clear');
+
+    // Optionally optimize again
+    \Artisan::call('optimize');
+
+    return "✅ All caches cleared successfully!";
+})->name('clear.cache');
+
 
 Auth::routes();
 

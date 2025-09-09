@@ -17,7 +17,7 @@
                 data-price="{{ $service->price }}" 
                 data-qty="1">
                 
-                <img src="{{ Storage::URL($service->image) }}" alt="{{ $service->name }}">
+                <img src="{{ $service->image }}" alt="{{ $service->name }}">
 
                 <div class="service-body">
                     <div class="service-title">{{ $service->name }}</div>

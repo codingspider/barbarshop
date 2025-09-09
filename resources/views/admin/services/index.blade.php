@@ -27,7 +27,7 @@
                             <tr>
                                 <td>{{ $service->id }}</td>
                                 <td>
-                                    <img src="{{ Storage::url($service->image) }}" alt="" height="40" width="50" srcset="">
+                                    <img src="{{ $service->image }}" alt="" height="40" width="50" srcset="">
                                 </td>
                                 <td>{{ $service->name }}</td>
                                 <td>{{ $service->price }}</td>

@@ -91,7 +91,7 @@ $(document).ready(function() {
         console.log('addon id' + addon_id);
 
         $.ajax({
-            url: '/user/step-five/'+addon_id,
+            url: '/user/step-five?addon_id=' + addon_id,
             method: 'GET',
             dataType: 'html',
             success: function(res) {
@@ -140,6 +140,26 @@ $(document).ready(function() {
         });
 
     });
+    
+    // store order records 
+    $(document).on('click','.skip-btn', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: '/user/step-five?addon_id=',
+            method: "GET",
+            success: function(res) {
+                $('#content-body').html(res);
+                updateCartSummary();
+                updateCartTable();
+            },
+            error: function(err) {
+                console.error(err);
+                $('#content-body').html('<div class="col-12 text-center text-danger">Failed to load section </div>');
+            }
+        });
+
+    });
 
     function stepSix (id) {
         $.ajax({
@@ -148,9 +168,9 @@ $(document).ready(function() {
             dataType: 'html',
             success: function(res) {
                 $('#content-body').html(res);
-                setTimeout(function() {
-                    window.location.href = "/";
-                }, 5000);
+                // setTimeout(function() {
+                //     window.location.href = "/";
+                // }, 5000);
             },
             error: function(err) {
                 console.error(err);
@@ -160,19 +180,20 @@ $(document).ready(function() {
     }
 
     // print ticktes 
-    function printTicket(id){
-        $.ajax({
-            url: "/user/generate-ticket/"+ id,
-            method: "GET",
-            success: function(html) {
-                let printWindow = window.open('', '_blank');
-                printWindow.document.write(html);
-                printWindow.document.close();
-                printWindow.focus();
-                printWindow.print();
-            }
-        });
+    function printTicket(id) {
+        fetch("/user/ticket/print/" + id)
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Ticket printed successfully!");
+                } else {
+                    alert("Print failed: " + data.message);
+                }
+            })
+            .catch(err => console.error("Print request failed:", err));
     }
+
+
 
     // Fetch and display cart
     function updateCartTable(res) {

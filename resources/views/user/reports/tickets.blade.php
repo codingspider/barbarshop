@@ -8,9 +8,6 @@
     <!-- Report Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="mb-0">{{ __('messages.ticket_report') }} - {{ now()->format('F j, Y') }}</h2>
-        <button class="btn btn-outline-primary" onclick="printReport()">
-            <i class="bi bi-printer"></i> {{ __('messages.print') }}
-        </button>
     </div>
 
     <!-- Summary Cards -->
@@ -58,7 +55,7 @@
             <div class="card-header">
                 <h5 class="mb-0">{{ __('messages.ticket_details') }}</h5>
             </div>
-            <div class="card-body p-0">
+            <div class="card-body p-0 table-responsive">
                 <table class="table table-bordered table-striped mb-0">
                     <thead class="table-light">
                         <tr>

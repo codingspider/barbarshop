@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PrinterController;
 use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\FrontController;
 use App\Http\Controllers\User\TicketController;
@@ -11,12 +12,12 @@ Route::get('/get-waiting-customers', [DashboardController::class, 'getPeopleAhea
 
 Route::prefix('user')->name('user.')->group(function () {
     // Protected routes (only accessible by users)
-    Route::middleware(['isUser'])->group(function () {
-        Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::middleware(['isUser', 'SetLocale'])->group(function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('home');
 
         Route::get('/generate-ticket/{id}', [DashboardController::class, 'generateTicket'])->name('generate-ticket');
-        Route::get('/ticket/print/{id}', [DashboardController::class, 'ticketPrint'])->name('ticket-print');
 
+        Route::get('/ticket/print/{id}', [PrinterController::class, 'ticketPrint'])->name('ticket-print');
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::post('/cutomer-store', [DashboardController::class, 'customerStore'])->name('customers.store');
         Route::get('/create-ticket', [TicketController::class, 'ticketStore'])->name('create-ticket');
@@ -42,7 +43,7 @@ Route::prefix('user')->name('user.')->group(function () {
         Route::get('step-two', [FrontController::class, 'stepTwo'])->name('step-two');
         Route::get('step-three', [FrontController::class, 'stepThree'])->name('step-three');
         Route::get('step-four/{id}', [FrontController::class, 'stepFour'])->name('step-four');
-        Route::get('step-five/{id}', [FrontController::class, 'stepFive'])->name('step-five');
+        Route::get('step-five', [FrontController::class, 'stepFive'])->name('step-five');
         Route::get('step-six/{id}', [FrontController::class, 'stepSix'])->name('step-six');
     });
 });

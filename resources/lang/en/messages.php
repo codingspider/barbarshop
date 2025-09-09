@@ -91,4 +91,11 @@ return [
     'min' =>'Min',
     'order' =>'Click to order',
     'data_not_found' =>'Data not found !',
+    'skip' =>'Skip',
+
+    'forgot_password' =>'Forgot password?',
+    'remember_me' =>'Remember Me',
+    'signout' =>'Signout',
+    'dashboard' =>'Dashboard',
+    'order' =>'Order',
 ];

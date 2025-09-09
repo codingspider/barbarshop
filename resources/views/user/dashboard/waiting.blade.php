@@ -18,9 +18,6 @@
             </thead>
             <tbody>
                 @foreach ($tickets as $ticket)
-                    @php
-                        $modalId = 'assignBarberModal-' . $ticket->id;
-                    @endphp
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $ticket->customer?->name }}</td>

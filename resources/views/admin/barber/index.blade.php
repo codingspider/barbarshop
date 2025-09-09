@@ -14,6 +14,7 @@
                     <thead class="table-light">
                         <tr>
                             <th>{{__('messages.id')}}</th>
+                            <th>{{__('messages.image')}}</th>
                             <th>{{__('messages.name')}}</th>
                             <th>{{__('messages.email')}}</th>
                             <th>{{__('messages.actions')}}</th>
@@ -23,6 +24,9 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
+                                <td>
+                                    <img src="{{ $user->image }}" height="50" alt="" srcset="">
+                                </td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
 

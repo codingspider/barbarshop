@@ -42,7 +42,7 @@ class BaberController extends Controller
         try {
             $data = $request->all();
             if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image')->store('barbers', 'public');
+                $data['image'] = uploadPublicImage($request->file('image'), 'barbers');
             }
             $data['user_type'] = 'barber';
             User::create($data);
@@ -80,7 +80,7 @@ class BaberController extends Controller
             $user = User::find($id);
             $data = $request->except('password', '_token', '_method', 'image');
             if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image')->store('barbers', 'public');
+                $data['image'] = uploadPublicImage($request->file('image'), 'barbers');
             }
             if($request->password){
                 $data['password'] = Hash::make($request->password);

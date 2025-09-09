@@ -11,7 +11,7 @@
         <div class="card mb-3 rounded-4 border-0 shadow-sm">
             <div class="row g-0">
                 <div class="col-4">
-                    <img src="{{ Storage::url($ticket->service?->image) }}" class="img-fluid rounded-start rounded-4" alt="Stylist 1">
+                    <img src="{{ $ticket->service?->image }}" class="img-fluid rounded-start rounded-4" alt="Stylist 1">
                 </div>
                 <div class="col-8 d-flex align-items-center justify-content-center">
                     <span class="fs-4 fw-bold">{{ $ticket->service?->duration_minutes }}</span>

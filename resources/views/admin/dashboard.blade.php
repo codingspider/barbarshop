@@ -90,6 +90,21 @@
 <div class="row g-3 mb-3 row-deck">
     <div class="col-xl-12">
         <div class="card">
+            <form action="{{ route('admin.filter.tickets') }}" method="GET" class="row g-3 align-items-end mb-4">
+                @csrf
+                <div class="col-md-4">
+                    <label for="from_date" class="form-label">From Date</label>
+                    <input type="date" name="from_date" id="from_date" class="form-control" value="{{ request('from_date') }}">
+                </div>
+                <div class="col-md-4">
+                    <label for="to_date" class="form-label">To Date</label>
+                    <input type="date" name="to_date" id="to_date" class="form-control" value="{{ request('to_date') }}">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Filter</button>
+                </div>
+            </form>
+
             <div class="card-header py-3 d-flex justify-content-between">
                 <h6 class="mb-0 fw-bold">{{ __('messages.tickets') }}</h6>
             </div>

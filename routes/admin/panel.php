@@ -30,5 +30,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('app-management', [ApplicationSettingController::class, 'index'])->name('app-management');
 
         Route::put('setting-update', [ApplicationSettingController::class, 'update'])->name('settings.update');
+        Route::get('filter-tickets', [AdminDashboard::class, 'filterTickets'])->name('filter.tickets');
     });
 });

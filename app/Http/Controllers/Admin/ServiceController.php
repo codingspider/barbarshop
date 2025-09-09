@@ -45,7 +45,7 @@ class ServiceController extends Controller
 
             $data = $request->except('image', '_token', '_method');
             if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image')->store('services', 'public');
+                $data['image'] = uploadPublicImage($request->file('image'), 'services');
             }
             $data['active'] = (int) $request->active;
             Service::create($data);
@@ -82,7 +82,7 @@ class ServiceController extends Controller
             $data = $request->except('image', '_token', '_method');
             $data['active'] = (int) $request->active;
             if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image')->store('services', 'public');
+                $data['image'] = uploadPublicImage($request->file('image'), 'services');
             }
 
             $service->update($data);

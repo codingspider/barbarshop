@@ -33,7 +33,7 @@ class ApplicationSettingController extends Controller
                 if ($settings->logo) {
                     Storage::delete($settings->logo);
                 }
-                $settings->logo = $request->file('logo')->store('settings', 'public');
+                $settings->logo = uploadPublicImage($request->file('logo'), 'logo');
             }
 
             // Handle favicon upload
@@ -41,13 +41,15 @@ class ApplicationSettingController extends Controller
                 if ($settings->favicon) {
                     Storage::delete($settings->favicon);
                 }
-                $settings->favicon = $request->file('favicon')->store('settings', 'public');
+                $settings->favicon = uploadPublicImage($request->file('favicon'), 'favicon');
             }
 
             $settings->save();
 
             // Update .env values if needed (example: SITE_NAME)
-            $this->setEnvValue('APP_NAME', $request->site_name);
+            if($request->site_name){
+                $this->setEnvValue('APP_NAME', $request->site_name);
+            }
 
             return redirect()->back()->with('success', 'Settings updated successfully.');
         } catch (\Exception $e) {

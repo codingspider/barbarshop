@@ -58,3 +58,25 @@ if (!function_exists('getBarberSchedule')) {
         ];
     }
 }
+
+
+if (!function_exists('uploadPublicImage')) {
+    function uploadPublicImage($file, $folder = 'images', $filename = null)
+    {
+        if (!$file) return null;
+
+        $filename = $filename ?? time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+
+        $destinationPath = public_path($folder);
+
+        // Create folder if not exists
+        if (!file_exists($destinationPath)) {
+            mkdir($destinationPath, 0755, true);
+        }
+
+        $file->move($destinationPath, $filename);
+
+        // Return URL accessible via browser
+        return asset($folder . '/' . $filename);
+    }
+}

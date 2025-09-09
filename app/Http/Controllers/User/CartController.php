@@ -56,7 +56,7 @@ class CartController extends Controller
     // Get total (subtotal + tax)
     public function total()
     {
-        $total = Cart::total() + collect(Cart::content())->sum(fn($i) => $i->options->addon_price ?? 0);
+        $total = Cart::total() + collect(Cart::content())->sum(fn($i) => (float) $i->options->addon_price ?? 0);
         return response()->json(['total' => formatPrice($total)]);
     }
 

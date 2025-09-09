@@ -18,7 +18,7 @@
                 <div class="mb-3">
                     <label for="site_name" class="form-label">{{ __('messages.site_name') }}</label>
                     <input type="text" name="site_name" class="form-control" id="site_name"
-                        value="{{ old('site_name', $settings->site_name ?? '') }}" required>
+                        value="{{ env('APP_name') }}" required>
                 </div>
 
                 <!-- Logo -->

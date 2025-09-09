@@ -32,13 +32,15 @@ class AppServiceProvider extends ServiceProvider
         $customers = User::where('user_type', 'customer')->get();
         $payments = Payment::whereDate('created_at', Carbon::today())->sum('amount');
         $settings = Setting::first();
+        $currentLocale = app()->getLocale();
 
         View::share([
             'services' => $services,
             'customers' => $customers,
             'payments' => $payments,
-            'siteLogo'   => $settings?->logo ? asset('storage/' . $settings->logo) : null,
-            'siteFavicon'=> $settings?->favicon ? asset('storage/' . $settings->favicon) : null,
+            'siteLogo'   => $settings?->logo,
+            'siteFavicon'=> $settings?->favicon,
+            'currentLocale'=> $currentLocale,
         ]);
     }
 }

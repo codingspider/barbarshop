@@ -41,7 +41,7 @@ class AddonsController extends Controller
 
             $data = $request->except('image', '_token', '_method');
             if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image')->store('addons', 'public');
+                $data['image'] = uploadPublicImage($request->file('image'), 'addons');
             }
             $data['active'] = (int) $request->active;
             Addon::create($data);
@@ -79,7 +79,7 @@ class AddonsController extends Controller
             $data = $request->except('image', '_token', '_method');
             $data['active'] = (int) $request->active;
             if ($request->hasFile('image')) {
-                $data['image'] = $request->file('image')->store('addons', 'public');
+                $data['image'] = uploadPublicImage($request->file('image'), 'addons');
             }
 
             $service->update($data);

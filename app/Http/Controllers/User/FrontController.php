@@ -33,26 +33,40 @@ class FrontController extends Controller
     public function stepFour($barber_id){
         Session::put('barber_id', $barber_id);
         $products = Addon::where('active', 1)->get();
-        return view('front.step_four', compact('products'));
+        return view('front.step_four', compact('products', 'barber_id'));
     }
     
-    public function stepFive($addon_id){
+    public function stepFive(Request $request)
+    {
+        $addon_id = $request->get('addon_id');
         $firstItem = Cart::content()->first();
-        $rowId = $firstItem->rowId;
-        $addonPrice = Addon::where('id', $addon_id)->first()->price;
-        Cart::update($rowId, [
-            'options' => [
-                'addon_id' => $addon_id,
-                'addon_price' => $addonPrice
-            ]
-        ]);
+
+        if ($firstItem) {
+            $rowId = $firstItem->rowId;
+
+            if ($addon_id) {
+                $addon = Addon::where('id', $addon_id)->first();
+                $addonPrice = $addon ? $addon->price : 0;
+
+                // Update the cart with addon
+                Cart::update($rowId, [
+                    'options' => [
+                        'addon_id' => $addon_id,
+                        'addon_price' => $addonPrice
+                    ]
+                ]);
+            }
+        }
+
         $addons = Addon::where('active', 1)->get();
         $services = Service::where('active', 1)->get();
         $carts = Cart::content();
         $barber_id = Session::get('barber_id');
         $datas = getBarberSchedule($barber_id);
+
         return view('front.step_five', compact('addons', 'datas'));
     }
+
 
 
     public function stepSix($id){

@@ -58,7 +58,6 @@
                                                 <select class="form-select" id="status" name="status" required>
                                                 <option value="" disabled selected>Select Status</option>
                                                     <option value="open">{{ __('messages.accept') }}</option>
-                                                    <option value="completed">{{ __('messages.completed') }}</option>
                                                     <option value="cancelled">{{ __('messages.cancelled') }}</option>
                                                 </select>
                                             </div>

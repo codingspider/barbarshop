@@ -33,6 +33,7 @@ class TicketController extends Controller
             $order = $this->createOrder($customer_id, $ticket, $cartTotal, $cartSubtotal);
             $items = $this->createOrderItems($order, $cartItems);
             Cart::destroy();
+            $showModal = session(['show_modal' => false]);
             DB::commit();
 
             return response()->json(['success' => true, 'id' => $ticket->id ]);
@@ -109,13 +110,14 @@ class TicketController extends Controller
     public function barberAllAction($status){
         $id = Auth::guard('user')->user()->id;
         $tickets = Ticket::with('customer')->where('status', $status)->whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->paginate(10);
-        return view('user.dashboard.barber_completed', compact('tickets'));
+        return view('user.dashboard.barber_completed', compact('tickets', 'status'));
     }
     
     public function allServices(){
         $id = Auth::guard('user')->user()->id;
         $tickets = Ticket::with('customer')->orderBy('id', 'desc')->paginate(10);
-        return view('user.dashboard.barber_completed', compact('tickets'));
+        $status = null;
+        return view('user.dashboard.barber_completed', compact('tickets', 'status'));
     }
 
     public function dailyReport()

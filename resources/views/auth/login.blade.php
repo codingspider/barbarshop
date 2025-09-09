@@ -28,7 +28,7 @@
                                 @csrf
                                 <!-- Email -->
                                 <div class="mb-3">
-                                    <label for="email" class="form-label">Email Address</label>
+                                    <label for="email" class="form-label">{{ __('messages.email')}}</label>
                                     <input id="email" type="email"
                                         class="form-control @error('email') is-invalid @enderror"
                                         name="email" value="{{ old('email') }}" required autofocus>
@@ -39,7 +39,7 @@
 
                                 <!-- Password -->
                                 <div class="mb-3">
-                                    <label for="password" class="form-label">Password</label>
+                                    <label for="password" class="form-label">{{ __('messages.password')}}</label>
                                     <input id="password" type="password"
                                         class="form-control @error('password') is-invalid @enderror"
                                         name="password" required>
@@ -53,14 +53,14 @@
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember"
                                         {{ old('remember') ? 'checked' : '' }}>
                                     <label class="form-check-label" for="remember">
-                                        Remember Me
+                                    {{ __('messages.remember_me') }}
                                     </label>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary w-100 mb-3">Login</button>
+                                <button type="submit" class="btn btn-primary w-100 mb-3">{{ __('messages.login')}}</button>
 
                                 <div class="text-center">
-                                    <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot password?</a>
+                                    <a href="{{ route('password.request') }}" class="text-decoration-none">{{ __('messages.forgot_password') }}</a>
                                 </div>
                             </form>
                         </div>

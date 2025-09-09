@@ -24,30 +24,30 @@
     }
 
     /* Main responsive container */
-.main-wrapper {
-    width: 1100px; /* Fixed width for desktop */
-    margin: 0 auto; /* Center horizontally */
-    background: #fff;
-    border-radius: 14px;
-    padding: 18px;
-}
-
-/* Tablet view */
-@media (max-width: 1024px) {
     .main-wrapper {
-        width: 900px; /* Fixed width for tablet */
-        padding: 16px;
+        width: 1100px; /* Fixed width for desktop */
+        margin: 0 auto; /* Center horizontally */
+        background: #fff;
+        border-radius: 14px;
+        padding: 18px;
     }
-}
 
-/* Mobile view */
-@media (max-width: 768px) {
-    .main-wrapper {
-        width: 100%; /* Full width on mobile */
-        padding: 12px;
-        border-radius: 10px;
+    /* Tablet view */
+    @media (max-width: 1024px) {
+        .main-wrapper {
+            width: 900px; /* Fixed width for tablet */
+            padding: 16px;
+        }
     }
-}
+
+    /* Mobile view */
+    @media (max-width: 768px) {
+        .main-wrapper {
+            width: 100%; /* Full width on mobile */
+            padding: 12px;
+            border-radius: 10px;
+        }
+    }
 
 
     .service-card {
@@ -96,81 +96,14 @@
     }
   </style>
 </head>
-<body class="d-flex align-items-center justify-content-center p-3">
+<body class="align-items-center justify-content-center p-3">
   <div class="position-relative device-frame">
     <div class="main-wrapper">
       @include('user.customer_modal')
       @include('user.partials.header')
 
       <!-- Navigation -->
-      <div class="mt-4">
-        <ul class="nav justify-content-center flex-wrap" style="border-bottom:1px solid #eee">
-          @if(\Auth::guard('user')->user()?->user_type == 'customer')
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}" style="margin-right: 10px">
-                      Dashboard
-                  </a>
-              </li>
-          @elseif(\Auth::guard('user')->user()?->user_type == 'user')
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('/') ? 'active' : '' }}" href="{{ url('/') }}" style="margin-right: 10px">
-                      Dashboard
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/ticket-waiting') ? 'active' : '' }}" href="{{ route('user.ticket-waiting') }}" style="margin-right: 10px">
-                      {{ __('messages.appointments') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/in-service') ? 'active' : '' }}" href="{{ url('user/in-service') }}" style="margin-right: 10px">
-                      {{ __('messages.in_service') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/completed') ? 'active' : '' }}" href="{{ url('user/completed') }}" style="margin-right: 10px">
-                      {{ __('messages.completed') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/payment/receive') ? 'active' : '' }}" href="{{ url('user/payment/receive') }}" style="margin-right: 10px">
-                      {{ __('messages.payment_receive') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/ticket/report') ? 'active' : '' }}" href="{{ url('user/ticket/report') }}" style="margin-right: 10px">
-                      {{ __('messages.ticket_report') }}
-                  </a>
-              </li>
-          @elseif(\Auth::guard('user')->user()?->user_type == 'barber')
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/dashboard') ? 'active' : '' }}" href="{{ url('user/dashboard') }}" style="margin-right: 10px">
-                      {{ __('messages.assigned_ticket') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/in_service') ? 'active' : '' }}" href="{{ url('user/status/in_service') }}" style="margin-right: 10px">
-                      {{ __('messages.in_service') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/completed') ? 'active' : '' }}" href="{{ url('user/status/completed') }}" style="margin-right: 10px">
-                      {{ __('messages.completed') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/status/cancelled') ? 'active' : '' }}" href="{{ url('user/status/cancelled') }}" style="margin-right: 10px">
-                      {{ __('messages.cancelled') }}
-                  </a>
-              </li>
-              <li class="nav-item">
-                  <a class="nav-link px-0 pb-2 text-muted {{ request()->is('user/all/services') ? 'active' : '' }}" href="{{ url('user/all/services') }}" style="margin-right: 10px">
-                      {{ __('messages.all_services') }}
-                  </a>
-              </li>
-          @endif
-        </ul>
-      </div>
+      @include('user.partials.nav')
 
       <div class="row g-4 mt-2">
         <!-- Cart column -->
