@@ -19,12 +19,17 @@
                 </div>
                 <p>
                     <ul class="list-unstyled d-flex flex-wrap gap-2">
-                        <li>{{ __('messages.next_customer') }}</li>
-
+                        <li class="me-2">{{ __('messages.next_customer') }}</li>
+                        <div class="w-100" style="font-size: 10px"></div> {{-- forces line break --}}
                         @foreach($user->tickets as $ticket)
-                            <li><span class="badge bg-primary p-2" style="font-size: 10px">{{ $loop->iteration }} . {{ $ticket->ticket_no }}</span> </li>
+                            <li>
+                                <span class="badge bg-primary p-2" style="font-size: 10px">
+                                    {{ $loop->iteration }} . {{ $ticket->ticket_no }}
+                                </span>
+                            </li>
                         @endforeach
                     </ul>
+
                 </p>
             </div>
             

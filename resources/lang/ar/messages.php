@@ -91,4 +91,9 @@ return [
     'order' =>'انقر للطلب',
     'data_not_found' =>'لم يتم العثور على بيانات!',
     'skip' =>'تخطي',
+    'next_customer' => 'العملاء القادمون',
+    'signout' => 'تسجيل الخروج',
+    'name_english' => 'English Name',
+    'name_french'  => 'Nom français',
+    'name_arabic'  => 'الاسم العربي',
 ];

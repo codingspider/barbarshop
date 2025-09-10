@@ -101,4 +101,9 @@ return [
     'dashboard' =>'Dashboard',
     'order' =>'Order',
     'next' =>'Next',
+    'next_customer' => 'Next Customers',
+    'name_english' => 'English Name',
+    'name_french'  => 'Nom français',
+    'name_arabic'  => 'الاسم العربي',
+
 ];

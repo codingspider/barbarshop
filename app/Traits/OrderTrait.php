@@ -6,6 +6,7 @@ use App\Models\OrderItem;
 use App\Enums\OrderStatus;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
   
 trait OrderTrait {
@@ -23,22 +24,37 @@ trait OrderTrait {
         return $order;
     }
     
-    
-    public function createOrderItems($order, $cartItems) {
+    public function createOrderItems($order, $cartItems)
+    {
 
-        foreach ($cartItems as $key => $value) {
-            $order = OrderItem::create([
-                'order_id' => $order->id,
-                'item_type' => OrderStatus::SERVICE,
-                'item_id' => $value->id,
-                'name_snapshot' => $value->name,
-                'qty'  => $value->qty,
-                'unit_price' => $value->price,
-                'line_total' => $value->price * $value->qty,
+        foreach ($cartItems as $item) {
+            // 1. Save the main service
+            $orderItem = OrderItem::create([
+                'order_id'      => $order->id,
+                'item_type'     => 'service',
+                'item_id'       => Session::get('service_id'),
+                'name_snapshot' => $item['service'],
+                'qty'           => $item['qty'],
+                'unit_price'    => $item['price'],
+                'line_total'    => $item['total'],
             ]);
-        }
-        
 
-        return true;
+            // 2. Save addons in another table (assuming you have OrderItemAddon model)
+            // if (!empty($item['addons'])) {
+            //     foreach ($item['addons'] as $addon) {
+            //         OrderItemAddon::create([
+            //             'order_item_id' => $orderItem->id,
+            //             'addon_id'      => $addon['id'],
+            //             'name_snapshot' => $addon['name'],
+            //             'qty'           => 1, // if addons have no qty, default to 1
+            //             'unit_price'    => $addon['price'],
+            //             'line_total'    => $addon['price'],
+            //         ]);
+            //     }
+            // }
+        }
+
+        return $orderItem;
     }
+
 }

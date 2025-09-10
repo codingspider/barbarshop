@@ -23,9 +23,19 @@
                 @csrf
 
                 <div class="mb-3">
-                    <label>{{ __('messages.name') }} <span class="text-danger">*</span> </label>
+                    <label>{{ __('messages.name_english') }} <span class="text-danger">*</span> </label>
                     <input type="text" name="name" class="form-control" value="{{ $service->name ?? old('name') }}"
                         required>
+                </div>
+                
+                <div class="mb-3">
+                    <label>{{ __('messages.name_arabic') }} <span class="text-danger">*</span> </label>
+                    <input type="text" name="name_ar" class="form-control" value="{{ $service->name_ar ?? old('name_ar') }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label>{{ __('messages.name_french') }} <span class="text-danger">*</span> </label>
+                    <input type="text" name="name_fr" class="form-control" value="{{ $service->name_fr ?? old('name_fr') }}" required>
                 </div>
 
                 <div class="mb-3">

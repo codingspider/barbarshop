@@ -91,4 +91,9 @@ return [
     'order' =>'Cliquez pour commander',
     'data_not_found' =>'Aucune donnée trouvée !',
     'skip' =>'Passer',
+    'next_customer' => 'Prochains clients',
+    'signout' => 'se déconnecter',
+        'name_english' => 'English Name',
+    'name_french'  => 'Nom français',
+    'name_arabic'  => 'الاسم العربي',
 ];

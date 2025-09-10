@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-12 col-md-6 text-center text-md-start">
         <h1 class="display-1 fw-bold">{{ $datas['waiting']}}</h1>
-        <p class="fs-4">people ahead<br>of you</p>
+        <p class="fs-4">{{ __('messages.people') }}<br>{{ __('messages.ahead') }}</p>
         <p class="fs-5 text-muted">{{ __('messages.approx') }}. {{ $datas['time']}} {{ __('messages.min')}}</p>
         <a href="{{ route('user.cancell-ticket', $ticket->id) }}" class="btn btn-success btn-lg w-100 mt-4 rounded-3">{{ __('messages.cancel')}}</a>
     </div>

@@ -36,7 +36,7 @@
                 <span>{{ __('messages.full_screen') }}</span>
             </button>
         </div>
-@if(\Auth::guard('user')->user()?->user_type == 'user')
+        @if(\Auth::guard('user')->user()?->user_type == 'user')
         <div class="d-none d-md-block text-end">
             <div style="font-size:13px;color:#6b7280">{{ __('messages.today_total_sales') }}</div>
             <div style="font-size:18px;font-weight:700">{{ formatPrice($payments)}}</div>

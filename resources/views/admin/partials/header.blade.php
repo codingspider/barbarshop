@@ -18,6 +18,43 @@
                     </a>
                 </div>
 
+                @php
+                $flags = [
+                    'en' => 'GB.png',
+                    'fr' => 'FR.png',
+                    'ar' => 'AR.png',
+                ];
+
+                $currentFlag = $flags[$currentLocale] ?? 'GB.png';
+            @endphp
+
+            <div class="dropdown zindex-popover">
+                <a class="nav-link dropdown-toggle pulse" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ asset('admin/assets/images/flag/' . $currentFlag) }}" alt="">
+                </a>
+                <div class="dropdown-menu rounded-lg shadow border-0 dropdown-animation dropdown-menu-md-end p-0 m-0" data-bs-popper="static">
+                    <div class="card border-0">
+                        <ul class="list-unstyled py-2 px-3">
+                            <li>
+                                <a href="{{ route('change.lang', ['lang' => 'en']) }}">
+                                    <img src="{{ asset('admin/assets/images/flag/GB.png') }}" alt=""> {{ __('messages.english') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('change.lang', ['lang' => 'fr']) }}">
+                                    <img src="{{ asset('admin/assets/images/flag/FR.png') }}" alt=""> {{ __('messages.french') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('change.lang', ['lang' => 'ar']) }}">
+                                    <img src="{{ asset('admin/assets/images/flag/AR.png') }}" alt=""> {{ __('messages.arabic') }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
                 <!-- User Profile Dropdown -->
                 <div class="dropdown">
                     <a class="nav-link dropdown-toggle p-0" href="#" role="button" data-bs-toggle="dropdown"

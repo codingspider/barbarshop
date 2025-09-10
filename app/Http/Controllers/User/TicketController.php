@@ -41,11 +41,12 @@ class TicketController extends Controller
 
             // Create order items using the cart items
             $items = $this->createOrderItems($order, $cartItems);
+
             Cart::destroy();
             $request->session()->forget('language_changed');
             DB::commit();
 
-            return response()->json(['success' => true, 'ticket' => $ticket ]);
+            return response()->json(['success' => true, 'id' => $ticket->id ]);
            
         } catch (\Exception $e) {
             DB::rollBack();

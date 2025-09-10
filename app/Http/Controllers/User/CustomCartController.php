@@ -20,7 +20,7 @@ class CustomCartController extends Controller
             'name'     => $request->name,
             'qty'      => $request->qty ?? 1,
             'price'    => $request->price,
-            'base_price' => $request->price, // keep original price
+            'base_price' => $request->price,
             'addons'   => [],
         ];
 
