@@ -24,25 +24,70 @@ class TicketController extends Controller
     {
         DB::beginTransaction();
         try {
-            $cartTotal = Cart::total();
-            $cartItems = Cart::content();
-            $cartSubtotal = Cart::subtotal();
-            $customer_id = Auth::guard('user')->user()->id;
+            $cart = $this->cartDetails();
 
+            // Get total and items properly
+            $cartTotal    = $cart['total'];   
+            $cartItems    = $cart['items'];      
+            $cartSubtotal = $cartTotal;    
+            $barber_id = Session::get('barber_id');       
+            $customer_id = $barber_id;
+
+            // Create ticket
             $ticket = $this->createTicket($customer_id);
+
+            // Create order with total & subtotal
             $order = $this->createOrder($customer_id, $ticket, $cartTotal, $cartSubtotal);
+
+            // Create order items using the cart items
             $items = $this->createOrderItems($order, $cartItems);
             Cart::destroy();
-            $showModal = session(['show_modal' => false]);
+            $request->session()->forget('language_changed');
             DB::commit();
 
-            return response()->json(['success' => true, 'id' => $ticket->id ]);
+            return response()->json(['success' => true, 'ticket' => $ticket ]);
            
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['success' => false, 'message' => $e->getMessage()]);
         }
     }
+
+
+    public function cartDetails()
+    {
+        // Get cart from session
+        $cart = Session::get('cart.item');
+
+        if (!$cart) {
+            return response()->json([
+                'items' => [],
+                'total' => 0,
+            ]);
+        }
+
+        // Calculate totals
+        $basePrice    = (float) $cart['base_price'];
+        $qty          = (float) ($cart['qty'] ?? 1);
+        $addonsTotal  = collect($cart['addons'] ?? [])->sum('price');
+        $totalPrice   = ($basePrice + $addonsTotal) * $qty;
+
+        // Prepare details array
+        $details = [
+            'service'  => $cart['name'],
+            'price'    => $basePrice,
+            'addons'   => $cart['addons'] ?? [],
+            'total'    => $basePrice + $addonsTotal,
+            'qty'      => $qty,
+            'subtotal' => $totalPrice
+        ];
+
+        return [
+            'items' => [$details],
+            'total' => $totalPrice
+        ];
+    }
+
     
     public function assignBarbar(Request $request)
     {

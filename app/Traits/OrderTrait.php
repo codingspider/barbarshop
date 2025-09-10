@@ -13,7 +13,7 @@ trait OrderTrait {
     public function createOrder($customer_id, $ticket, $cartTotal, $cartSubtotal) {
         $order = Order::create([
             'customer_id' => $customer_id,
-            'ticket_id' => $ticket->id,
+            'ticket_id' => $ticket['id'],
             'subtotal' => (float)$cartSubtotal,
             'total' => (float)$cartTotal,
             'status'  => OrderStatus::OPEN,

@@ -85,20 +85,16 @@ $(document).ready(function() {
     
     
     
-    $(document).on('click', '.choose_addon', function(e) {
+    $(document).on('click', '.showcartsummery', function(e) {
         e.preventDefault();
-        var addon_id = $(this).data('id');
-        console.log('addon id' + addon_id);
 
         $.ajax({
-            url: '/user/step-five?addon_id=' + addon_id,
+            url: '/user/ticket-summery',
             method: 'GET',
             dataType: 'html',
             success: function(res) {
                 $('#content-body').html(res);
-                $('.cart_count').show();
                 updateCartSummary();
-                updateCartTable();
             },
             error: function(err) {
                 console.error(err);
@@ -107,19 +103,83 @@ $(document).ready(function() {
         });
     });
 
-    function updateCartSummary(res) {
-        $.get('/cart/total', function (data) {
-            $('.cart-total').text(data.total);
-        });
+    $(document).on('click', '.choose_addon', function(e) {
+        e.preventDefault();
 
-        $.get('/cart/count', function (data) {
-            $('.cart-count').text(data.count);
-        });
+        var card = $(this);
+        var addon_id = card.data('id');
 
-        $.get('/cart/subtotal', function (data) {
-            $('.cart-subtotal').text(data.subtotal);
+        // Prevent double-click when Remove button clicked
+        if($(e.target).hasClass('remove-btn')) return;
+
+        // Add to cart via AJAX
+        $.ajax({
+            url: '/user/step-five?addon_id=' + addon_id,
+            method: 'GET',
+            success: function(res) {
+                // Mark as selected
+                card.addClass('border-primary');
+                card.find('.remove-btn').removeClass('d-none');
+                console.log('Addon added:', addon_id);
+            },
+            error: function(err) {
+                console.error(err);
+                alert('Failed to add addon.');
+            }
+        });
+    });
+
+    // Remove button click
+    $(document).on('click', '.remove-btn', function(e) {
+        e.stopPropagation(); // Prevent triggering parent click
+
+        var card = $(this).closest('.choose_addon');
+        var addon_id = card.data('id');
+
+        // Remove from cart via AJAX
+        $.ajax({
+            url: '/user/remove-from-cart?addon_id=' + addon_id,
+            method: 'GET',
+            success: function(res) {
+                card.removeClass('border-primary');
+                card.find('.remove-btn').addClass('d-none');
+                console.log('Addon removed:', addon_id);
+            },
+            error: function(err) {
+                console.error(err);
+                alert('Failed to remove addon.');
+            }
+        });
+    });
+
+
+    function updateCartSummary() {
+        $.get('/cart/total', function(res) {
+            console.log(res.items);
+            let tbodyHtml = '';
+            $('.service_name').text(res.items.service);
+            $('.service_price').text(res.items.price);
+
+            // Loop through addons
+            res.items.addons.forEach(addon => {
+                tbodyHtml += `
+                    <div class="d-flex justify-content-between w-100 small text-muted mb-1">
+                        <span>${addon.name}</span>
+                        <span>$${addon.price}</span>
+                    </div>
+                `;
+            });
+
+            // Inject as HTML, not text
+            $('.addonsData').html(tbodyHtml);
+
+            $('.cart-total').text(res.items.total);
+            $('.cart-count').text(res.items.qty);
+            $('.cart-subtotal').text(res.items.subtotal);
         });
     }
+
+
 
     // store order records 
     $(document).on('click','#submitCartBtn', function(e) {
@@ -128,8 +188,7 @@ $(document).ready(function() {
             url: "/user/create-ticket/",
             method: "GET",
             success: function(res) {
-                $('#content-body').html(res);
-                $('.cart_count').hide();
+                console.log(res);
                 printTicket(res.id);
                 stepSix(res.id);
             },
@@ -151,7 +210,6 @@ $(document).ready(function() {
             success: function(res) {
                 $('#content-body').html(res);
                 updateCartSummary();
-                updateCartTable();
             },
             error: function(err) {
                 console.error(err);
@@ -168,9 +226,9 @@ $(document).ready(function() {
             dataType: 'html',
             success: function(res) {
                 $('#content-body').html(res);
-                // setTimeout(function() {
-                //     window.location.href = "/";
-                // }, 5000);
+                setTimeout(function() {
+                    window.location.href = "/";
+                }, 5000);
             },
             error: function(err) {
                 console.error(err);
@@ -194,32 +252,28 @@ $(document).ready(function() {
     }
 
 
-
-    // Fetch and display cart
-    function updateCartTable(res) {
-            $.getJSON('/cart/content', function(response) {
-            var $tbody = $('#cart-table tbody');
-            $tbody.empty();
-
-            if (!response.cart.length) {
-                $tbody.append(`
-                    <tr>
-                        <td colspan="2" class="text-center text-muted">Your cart is empty</td>
-                    </tr>
-                `);
-                return;
+    function updateBarberStatus() {
+        $.ajax({
+            url: "/user/barbers/status",
+            type: "GET",
+            success: function(response) {
+                response.forEach(function(barber) {
+                    $("#waiting-" + barber.id).text(barber.waiting);
+                    $("#time-" + barber.id).text(barber.time);
+                });
+            },
+            error: function(xhr) {
+                console.error("Error fetching barber status:", xhr);
             }
-
-            response.cart.forEach(function(item) {
-                var row = `
-                    <tr data-id="${item.id}">
-                        <td>${item.name}</td>
-                    </tr>
-                `;
-                $tbody.append(row);
-            });
         });
     }
+
+
+    // Update every 30 seconds
+    setInterval(updateBarberStatus, 30000);
+
+    // Initial load
+    updateBarberStatus();
 
 
 });

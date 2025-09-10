@@ -100,11 +100,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     @endif
-
 </div>
 @endif
-@if(request()->is('/'))
-<!-- Language Change Modal -->
+@if(request()->is('/') && !session('language_changed'))
 <div class="modal fade" id="languageModal" tabindex="-1" aria-labelledby="languageModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -193,6 +191,17 @@ body {
 }
 
 .skip-btn {
+    border: 1px solid grey;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+    cursor: pointer;
+    background: none;
+}
+.next{
     border: 1px solid grey;
     padding: 12px;
     border-radius: 8px;

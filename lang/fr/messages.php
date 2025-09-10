@@ -97,4 +97,5 @@ return [
     'signout' => 'Se déconnecter',
     'dashboard' => 'Tableau de bord',
     'order' => 'Commande',
+    'next_customer' => 'Prochains clients',
 ];

@@ -29,9 +29,11 @@ return [
     'customer' => 'Customer',
     'language' => 'Language',
     'sign_in' => 'Sign In',
+
     'english' => 'English',
-    'arabic' => 'إنجليزي',
-    'french' => 'Anglais',
+    'arabic' => 'عربي',
+    'french' => 'Français',
+
     'today_total_sales' => 'Today Total Sales',
     'total' =>'Total',
     'subtotal' =>'SubTotal',
@@ -98,4 +100,5 @@ return [
     'signout' =>'Signout',
     'dashboard' =>'Dashboard',
     'order' =>'Order',
+    'next' =>'Next',
 ];

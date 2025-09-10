@@ -14,6 +14,7 @@ class LanguageController extends Controller
             abort(400);
         }
         Session::put('locale', $lang);
+        Session::put('language_changed', true);
         return redirect()->back();
     }
 }

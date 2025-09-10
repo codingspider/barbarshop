@@ -1,22 +1,37 @@
 <div class="container">
-    <div class="row">
-        @foreach($users as $user)
-        @php
-        $datas = getBarberSchedule($user->id);
-        @endphp
+ <div class="row">
+    @foreach($users as $user)
+        @php $datas = getBarberSchedule($user->id); @endphp
         <div class="col-md-4 col-sm-4 mb-4">
-            <div class="service-card order-btn"
-                style="cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease; position: relative; z-index: 1; border: 5px solid black">
+            <div class="service-card order-btn" style="cursor:pointer; border: 5px solid black">
                 <img src="{{ $user->image }}" alt="{{ $user->name }}">
-                <div class="d-flex align-items-center mt-2" style="margin: 2px">
+                <div class="d-flex align-items-center mt-2" style="margin:2px">
                     <h6 class="fw-bold mb-0 me-3">{{ $user->name }}</h6>
-                    <p class="mb-0 me-3">{{ $datas['waiting'] }} {{ __('messages.waiting') }}</p>
-                    <small>~ {{ $datas['time'] }} {{ __('messages.min') }}</small>
+                    <p class="mb-0 me-3">
+                        <span id="waiting-{{ $user->id }}">{{ $datas['waiting'] }}</span>
+                        <span class="waitingCustomer">{{ __('messages.waiting') }}</span>
+                    </p>
+                    <small>
+                        ~ <span id="time-{{ $user->id }}">{{ $datas['time'] }}</span>
+                        <span class="minuteRemaining">{{ __('messages.min') }}</span>
+                    </small>
+                    
                 </div>
+                <p>
+                    <ul class="list-unstyled d-flex flex-wrap gap-2">
+                        <li>{{ __('messages.next_customer') }}</li>
+
+                        @foreach($user->tickets as $ticket)
+                            <li><span class="badge bg-primary p-2" style="font-size: 10px">{{ $loop->iteration }} . {{ $ticket->ticket_no }}</span> </li>
+                        @endforeach
+                    </ul>
+                </p>
             </div>
+            
         </div>
-        @endforeach
-    </div>
+    @endforeach
+</div>
+
 
     <!-- Button -->
     <div class="mt-4">

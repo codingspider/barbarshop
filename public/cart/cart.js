@@ -21,7 +21,6 @@ $(document).on('click', '.btn-add-to-cart', function(e) {
         qty: btn.data('qty')
     }, function(res) {
         toastr.success("Item Added to cart");
-        // Switch button to remove
         btn.removeClass('btn-primary btn-add-to-cart')
            .addClass('btn-danger');
 

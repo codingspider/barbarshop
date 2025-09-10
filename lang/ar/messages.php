@@ -97,4 +97,5 @@ return [
     'signout' => 'تسجيل الخروج',
     'dashboard' => 'لوحة التحكم',
     'order' => 'الطلب',
+    'next_customer' => 'العملاء القادمون',
 ];

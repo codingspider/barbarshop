@@ -1,6 +1,6 @@
 <div class="row">
     <!-- Left Column (Queue Card) -->
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-6 col-lg-6">
         <div class="small-ghost text-center">
             <div style="font-size:34px;font-weight:700">
                 <span id="ahead_people">{{ $datas['waiting']}}</span>
@@ -16,16 +16,21 @@
     </div>
 
     <!-- Right Column (Cart & Checkout) -->
-    <div class="col-md-4 col-lg-4">
+    <div class="col-md-6 col-lg-6">
         <form action="#" id="cartForm" class="d-flex flex-column gap-3">
 
             <!-- Order summary -->
             <div class="small-ghost">
-                <table class="table table-bordered" id="cart-table">
-                    <tbody>
-                    </tbody>
-                </table>
 
+                <div class="d-flex justify-content-between small text-muted mb-1">
+                    <div><span class="service_name"></span></div>
+                    <div><span class="service_price">0</span></div>
+                </div>
+                
+                <div class="d-flex justify-content-between small text-muted mb-1 addonsData">
+
+                </div>
+                
                 <div class="d-flex justify-content-between small text-muted mb-1">
                     <div>{{ __('messages.subtotal') }}</div>
                     <div><span class="cart-subtotal">0</span></div>

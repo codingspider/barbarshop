@@ -5,6 +5,7 @@ use App\Http\Controllers\User\CartController;
 use App\Http\Controllers\User\FrontController;
 use App\Http\Controllers\User\TicketController;
 use App\Http\Controllers\User\DashboardController;
+use App\Http\Controllers\User\CustomCartController;
 
 // User routes 
 Route::get('/products', [DashboardController::class, 'allProducts']);
@@ -38,23 +39,28 @@ Route::prefix('user')->name('user.')->group(function () {
 
         
         Route::get('/get-ticket-details/{id}', [DashboardController::class, 'getTicketDetails'])->name('get-ticket-details');
+        Route::get('/barbers/status', [DashboardController::class, 'getStatus'])->name('barbers.status');
 
         Route::get('step-one', [FrontController::class, 'stepOne'])->name('step-one');
         Route::get('step-two', [FrontController::class, 'stepTwo'])->name('step-two');
         Route::get('step-three', [FrontController::class, 'stepThree'])->name('step-three');
         Route::get('step-four/{id}', [FrontController::class, 'stepFour'])->name('step-four');
-        Route::get('step-five', [FrontController::class, 'stepFive'])->name('step-five');
+        Route::get('step-five', [CustomCartController::class, 'stepFive'])->name('step-five');
+        Route::get('ticket-summery', [FrontController::class, 'ticketSummery'])->name('ticket-summery');
+
+        Route::get('remove-from-cart', [CustomCartController::class, 'removeFromCart'])->name('remove-from-cart');
         Route::get('step-six/{id}', [FrontController::class, 'stepSix'])->name('step-six');
     });
 });
 
 Route::prefix('cart')->group(function () {
-    Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');
+    // Route::post('/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::post('/add', [CustomCartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/total', [CustomCartController::class, 'cartDetails'])->name('cart.total');
+
     Route::post('/update', [CartController::class, 'updateCart'])->name('cart.update');
     Route::post('/remove', [CartController::class, 'removeCart'])->name('cart.remove');
-
     Route::get('/subtotal', [CartController::class, 'subtotal'])->name('cart.subtotal');
-    Route::get('/total', [CartController::class, 'total'])->name('cart.total');
     Route::get('/tax', [CartController::class, 'tax'])->name('cart.tax');
     Route::get('/vat', [CartController::class, 'vat'])->name('cart.vat');
     Route::get('/count', [CartController::class, 'count'])->name('cart.count');

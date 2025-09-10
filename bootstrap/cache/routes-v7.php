@@ -13,7 +13,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::06HytBbRXPfA0tBf',
+            '_route' => 'generated::jw7cXophdGAFPLlR',
           ),
           1 => NULL,
           2 => 
@@ -110,7 +110,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::0ouYp1Ua1LgXn1c0',
+            '_route' => 'generated::IMHSP4MZATdm58my',
           ),
           1 => NULL,
           2 => 
@@ -165,7 +165,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::3eOXNxprvPmBc1qf',
+            '_route' => 'generated::f3iCZv3iDVAMaNv0',
           ),
           1 => NULL,
           2 => 
@@ -256,7 +256,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::RXkaoWNnGkjlUJB8',
+            '_route' => 'generated::en6O7mEgsa30tYj8',
           ),
           1 => NULL,
           2 => 
@@ -275,7 +275,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::yewjG6ZJDrbNCPb2',
+            '_route' => 'generated::oH6GblUmb6sqkhdZ',
           ),
           1 => NULL,
           2 => 
@@ -295,7 +295,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 
           array (
-            '_route' => 'generated::hib2a3kGj7AgDvjp',
+            '_route' => 'generated::KV5MsZzdMqLEof4L',
           ),
           1 => NULL,
           2 => 
@@ -565,6 +565,26 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/user/barbers/status' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'user.barbers.status',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/user/step-one' => 
       array (
         0 => 
@@ -645,6 +665,46 @@ app('router')->setCompiledRoutes(
           6 => NULL,
         ),
       ),
+      '/user/ticket-summery' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'user.ticket-summery',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/user/remove-from-cart' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'user.remove-from-cart',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
       '/cart/add' => 
       array (
         0 => 
@@ -657,6 +717,26 @@ app('router')->setCompiledRoutes(
           2 => 
           array (
             'POST' => 0,
+          ),
+          3 => NULL,
+          4 => false,
+          5 => false,
+          6 => NULL,
+        ),
+      ),
+      '/cart/total' => 
+      array (
+        0 => 
+        array (
+          0 => 
+          array (
+            '_route' => 'cart.total',
+          ),
+          1 => NULL,
+          2 => 
+          array (
+            'GET' => 0,
+            'HEAD' => 1,
           ),
           3 => NULL,
           4 => false,
@@ -709,26 +789,6 @@ app('router')->setCompiledRoutes(
           0 => 
           array (
             '_route' => 'cart.subtotal',
-          ),
-          1 => NULL,
-          2 => 
-          array (
-            'GET' => 0,
-            'HEAD' => 1,
-          ),
-          3 => NULL,
-          4 => false,
-          5 => false,
-          6 => NULL,
-        ),
-      ),
-      '/cart/total' => 
-      array (
-        0 => 
-        array (
-          0 => 
-          array (
-            '_route' => 'cart.total',
           ),
           1 => NULL,
           2 => 
@@ -1925,7 +1985,7 @@ app('router')->setCompiledRoutes(
   ),
   'attributes' => 
   array (
-    'generated::06HytBbRXPfA0tBf' => 
+    'generated::jw7cXophdGAFPLlR' => 
     array (
       'methods' => 
       array (
@@ -1953,8 +2013,8 @@ app('router')->setCompiledRoutes(
                     return response(\\Illuminate\\Support\\Facades\\View::file(\'C:\\\\laragon\\\\www\\\\pos-client-barbarshop\\\\vendor\\\\laravel\\\\framework\\\\src\\\\Illuminate\\\\Foundation\\\\Configuration\'.\'/../resources/health-up.blade.php\', [
                         \'exception\' => $exception,
                     ]), status: $exception ? 500 : 200);
-                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000a4e0000000000000000";}}',
-        'as' => 'generated::06HytBbRXPfA0tBf',
+                }";s:5:"scope";s:54:"Illuminate\\Foundation\\Configuration\\ApplicationBuilder";s:4:"this";N;s:4:"self";s:32:"0000000000000a4f0000000000000000";}}',
+        'as' => 'generated::jw7cXophdGAFPLlR',
       ),
       'fallback' => false,
       'defaults' => 
@@ -1984,6 +2044,7 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
           1 => 'SetLocale',
+          2 => 'isUser',
         ),
         'uses' => 'App\\Http\\Controllers\\HomeController@index',
         'controller' => 'App\\Http\\Controllers\\HomeController@index',
@@ -2076,7 +2137,7 @@ app('router')->setCompiledRoutes(
     \\Artisan::call(\'optimize\');
 
     return "✅ All caches cleared successfully!";
-}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a3c0000000000000000";}}',
+}";s:5:"scope";s:37:"Illuminate\\Routing\\RouteFileRegistrar";s:4:"this";N;s:4:"self";s:32:"0000000000000a3d0000000000000000";}}',
         'namespace' => NULL,
         'prefix' => '',
         'where' => 
@@ -2135,7 +2196,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::0ouYp1Ua1LgXn1c0' => 
+    'generated::IMHSP4MZATdm58my' => 
     array (
       'methods' => 
       array (
@@ -2155,7 +2216,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::0ouYp1Ua1LgXn1c0',
+        'as' => 'generated::IMHSP4MZATdm58my',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2244,7 +2305,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::3eOXNxprvPmBc1qf' => 
+    'generated::f3iCZv3iDVAMaNv0' => 
     array (
       'methods' => 
       array (
@@ -2264,7 +2325,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::3eOXNxprvPmBc1qf',
+        'as' => 'generated::f3iCZv3iDVAMaNv0',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2463,7 +2524,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::RXkaoWNnGkjlUJB8' => 
+    'generated::en6O7mEgsa30tYj8' => 
     array (
       'methods' => 
       array (
@@ -2483,7 +2544,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::RXkaoWNnGkjlUJB8',
+        'as' => 'generated::en6O7mEgsa30tYj8',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2499,7 +2560,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::yewjG6ZJDrbNCPb2' => 
+    'generated::oH6GblUmb6sqkhdZ' => 
     array (
       'methods' => 
       array (
@@ -2520,7 +2581,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::yewjG6ZJDrbNCPb2',
+        'as' => 'generated::oH6GblUmb6sqkhdZ',
       ),
       'fallback' => false,
       'defaults' => 
@@ -2536,7 +2597,7 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
-    'generated::hib2a3kGj7AgDvjp' => 
+    'generated::KV5MsZzdMqLEof4L' => 
     array (
       'methods' => 
       array (
@@ -2557,7 +2618,7 @@ app('router')->setCompiledRoutes(
         'where' => 
         array (
         ),
-        'as' => 'generated::hib2a3kGj7AgDvjp',
+        'as' => 'generated::KV5MsZzdMqLEof4L',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3271,6 +3332,45 @@ app('router')->setCompiledRoutes(
       'waitSeconds' => NULL,
       'withTrashed' => false,
     ),
+    'user.barbers.status' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'user/barbers/status',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'isUser',
+          2 => 'SetLocale',
+        ),
+        'uses' => 'App\\Http\\Controllers\\User\\DashboardController@getStatus',
+        'controller' => 'App\\Http\\Controllers\\User\\DashboardController@getStatus',
+        'as' => 'user.barbers.status',
+        'namespace' => NULL,
+        'prefix' => '/user',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
     'user.step-one' => 
     array (
       'methods' => 
@@ -3443,9 +3543,87 @@ app('router')->setCompiledRoutes(
           1 => 'isUser',
           2 => 'SetLocale',
         ),
-        'uses' => 'App\\Http\\Controllers\\User\\FrontController@stepFive',
-        'controller' => 'App\\Http\\Controllers\\User\\FrontController@stepFive',
+        'uses' => 'App\\Http\\Controllers\\User\\CustomCartController@stepFive',
+        'controller' => 'App\\Http\\Controllers\\User\\CustomCartController@stepFive',
         'as' => 'user.step-five',
+        'namespace' => NULL,
+        'prefix' => '/user',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'user.ticket-summery' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'user/ticket-summery',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'isUser',
+          2 => 'SetLocale',
+        ),
+        'uses' => 'App\\Http\\Controllers\\User\\FrontController@ticketSummery',
+        'controller' => 'App\\Http\\Controllers\\User\\FrontController@ticketSummery',
+        'as' => 'user.ticket-summery',
+        'namespace' => NULL,
+        'prefix' => '/user',
+        'where' => 
+        array (
+        ),
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'user.remove-from-cart' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'user/remove-from-cart',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+          1 => 'isUser',
+          2 => 'SetLocale',
+        ),
+        'uses' => 'App\\Http\\Controllers\\User\\CustomCartController@removeFromCart',
+        'controller' => 'App\\Http\\Controllers\\User\\CustomCartController@removeFromCart',
+        'as' => 'user.remove-from-cart',
         'namespace' => NULL,
         'prefix' => '/user',
         'where' => 
@@ -3518,14 +3696,51 @@ app('router')->setCompiledRoutes(
         array (
           0 => 'web',
         ),
-        'uses' => 'App\\Http\\Controllers\\User\\CartController@addToCart',
-        'controller' => 'App\\Http\\Controllers\\User\\CartController@addToCart',
+        'uses' => 'App\\Http\\Controllers\\User\\CustomCartController@addToCart',
+        'controller' => 'App\\Http\\Controllers\\User\\CustomCartController@addToCart',
         'namespace' => NULL,
         'prefix' => '/cart',
         'where' => 
         array (
         ),
         'as' => 'cart.add',
+      ),
+      'fallback' => false,
+      'defaults' => 
+      array (
+      ),
+      'wheres' => 
+      array (
+      ),
+      'bindingFields' => 
+      array (
+      ),
+      'lockSeconds' => NULL,
+      'waitSeconds' => NULL,
+      'withTrashed' => false,
+    ),
+    'cart.total' => 
+    array (
+      'methods' => 
+      array (
+        0 => 'GET',
+        1 => 'HEAD',
+      ),
+      'uri' => 'cart/total',
+      'action' => 
+      array (
+        'middleware' => 
+        array (
+          0 => 'web',
+        ),
+        'uses' => 'App\\Http\\Controllers\\User\\CustomCartController@cartDetails',
+        'controller' => 'App\\Http\\Controllers\\User\\CustomCartController@cartDetails',
+        'namespace' => NULL,
+        'prefix' => '/cart',
+        'where' => 
+        array (
+        ),
+        'as' => 'cart.total',
       ),
       'fallback' => false,
       'defaults' => 
@@ -3635,43 +3850,6 @@ app('router')->setCompiledRoutes(
         array (
         ),
         'as' => 'cart.subtotal',
-      ),
-      'fallback' => false,
-      'defaults' => 
-      array (
-      ),
-      'wheres' => 
-      array (
-      ),
-      'bindingFields' => 
-      array (
-      ),
-      'lockSeconds' => NULL,
-      'waitSeconds' => NULL,
-      'withTrashed' => false,
-    ),
-    'cart.total' => 
-    array (
-      'methods' => 
-      array (
-        0 => 'GET',
-        1 => 'HEAD',
-      ),
-      'uri' => 'cart/total',
-      'action' => 
-      array (
-        'middleware' => 
-        array (
-          0 => 'web',
-        ),
-        'uses' => 'App\\Http\\Controllers\\User\\CartController@total',
-        'controller' => 'App\\Http\\Controllers\\User\\CartController@total',
-        'namespace' => NULL,
-        'prefix' => '/cart',
-        'where' => 
-        array (
-        ),
-        'as' => 'cart.total',
       ),
       'fallback' => false,
       'defaults' => 
@@ -5509,7 +5687,7 @@ app('router')->setCompiledRoutes(
                         $config,
                         $isProduction
                     ))($request, $path);
-                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000a390000000000000000";}}',
+                }";s:5:"scope";s:47:"Illuminate\\Filesystem\\FilesystemServiceProvider";s:4:"this";N;s:4:"self";s:32:"0000000000000a3a0000000000000000";}}',
         'as' => 'storage.local',
       ),
       'fallback' => false,

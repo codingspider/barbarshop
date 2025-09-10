@@ -99,4 +99,6 @@ return [
     'dashboard' =>'Dashboard',
     'order' =>'Order',
     'select_language' => 'Select Language',
+
+    'next_customer' => 'Next Customers',
 ];

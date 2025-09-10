@@ -7,7 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LanguageController;
 
 
-Route::middleware(['SetLocale'])->group(function () {
+Route::middleware(['SetLocale', 'isUser'])->group(function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
 });
 

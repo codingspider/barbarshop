@@ -177,4 +177,21 @@ class DashboardController extends Controller
             return redirect()->route('user.payment-receive')->with('error', $e->getMessage());
         }
     }
+
+    public function getStatus()
+    {
+        $users = User::where('user_type', 'barber')->get();
+        $data = [];
+
+        foreach ($users as $user) {
+            $schedule = getBarberSchedule($user->id);
+            $data[] = [
+                'id' => $user->id,
+                'waiting' => $schedule['waiting'],
+                'time' => $schedule['time'],
+            ];
+        }
+
+        return response()->json($data);
+    }
 }
