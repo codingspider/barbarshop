@@ -94,7 +94,6 @@ class FrontController extends Controller
                     'options' => $options, 
                 ]);
 
-                dd(Cart::content());
             }
 
             return response()->json([

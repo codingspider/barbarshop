@@ -192,8 +192,12 @@ $(document).ready(function() {
             method: "GET",
             success: function(res) {
                 console.log(res);
-                printTicket(res.id);
                 stepSix(res.id);
+                // printTicket(res.id);
+                window.open(`/user/ticket/print/${res.id}`, '_blank');
+                // setTimeout(function() {
+                //     window.location.href = "/";
+                // }, 5000);
             },
             error: function(err) {
                 console.error(err);
@@ -243,7 +247,7 @@ $(document).ready(function() {
     // print ticktes 
     function printTicket(id) {
         fetch("/user/ticket/print/" + id)
-            .then(res => res.json())
+            .then(res => res.html())
             .then(data => {
                 if (data.success) {
                     alert("Ticket printed successfully!");

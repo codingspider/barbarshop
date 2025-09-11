@@ -6,6 +6,7 @@ use App\Models\OrderItem;
 use App\Enums\OrderStatus;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\OrderItemAddon;
 use Illuminate\Support\Facades\Session;
 
   
@@ -40,18 +41,18 @@ trait OrderTrait {
             ]);
 
             // 2. Save addons in another table (assuming you have OrderItemAddon model)
-            // if (!empty($item['addons'])) {
-            //     foreach ($item['addons'] as $addon) {
-            //         OrderItemAddon::create([
-            //             'order_item_id' => $orderItem->id,
-            //             'addon_id'      => $addon['id'],
-            //             'name_snapshot' => $addon['name'],
-            //             'qty'           => 1, // if addons have no qty, default to 1
-            //             'unit_price'    => $addon['price'],
-            //             'line_total'    => $addon['price'],
-            //         ]);
-            //     }
-            // }
+            if (!empty($item['addons'])) {
+                foreach ($item['addons'] as $addon) {
+                    OrderItemAddon::create([
+                        'order_id'      => $order->id,
+                        'addon_id'      => $addon['id'],
+                        'name'          => $addon['name'],
+                        'qty'           => 1,
+                        'price'         => $addon['price'],
+                        'total'    => $addon['price'],
+                    ]);
+                }
+            }
         }
 
         return $orderItem;
