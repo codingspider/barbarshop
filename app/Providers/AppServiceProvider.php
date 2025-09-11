@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Service;
 use App\Models\Setting;
@@ -30,7 +31,7 @@ class AppServiceProvider extends ServiceProvider
 
         $services = Service::where('active', 1)->get();
         $customers = User::where('user_type', 'customer')->get();
-        $payments = Payment::whereDate('created_at', Carbon::today())->sum('amount');
+        $payments = Order::whereDate('created_at', Carbon::today())->sum('total');
         $settings = Setting::first();
         $currentLocale = app()->getLocale();
 

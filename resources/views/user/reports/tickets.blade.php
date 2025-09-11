@@ -61,7 +61,7 @@
                         <tr>
                             <th>#</th>
                             <th>{{ __('messages.ticket_no') }}</th>
-                            <th>{{ __('messages.customer') }}</th>
+                            <th>{{ __('messages.barber') }}</th>
                             <th>{{ __('messages.status') }}</th>
                             <th>{{ __('messages.created_at') }}</th>
                         </tr>
@@ -71,7 +71,7 @@
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $ticket->ticket_no }}</td>
-                                <td>{{ $ticket->customer?->name }}</td>
+                                <td>{{ $ticket->barber?->name }}</td>
                                 <td>{!! $ticket->statusBadge() !!}</td>
                                 <td>{{ $ticket->created_at->format('F j, Y g:i A') }}</td>
                             </tr>

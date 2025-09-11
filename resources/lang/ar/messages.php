@@ -96,4 +96,6 @@ return [
     'name_english' => 'English Name',
     'name_french'  => 'Nom français',
     'name_arabic'  => 'الاسم العربي',
+    'available'   => 'متاح',
+    'unavailable' => 'غير متاح',
 ];

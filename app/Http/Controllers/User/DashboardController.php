@@ -91,7 +91,7 @@ class DashboardController extends Controller
 
     public function ticketWaiting(){
         try {
-            $tickets = Ticket::with('customer')->where('status', OrderStatus::WAITING)->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            $tickets = Ticket::with('customer')->where('status', OrderStatus::WAITING)->orderBy('id', 'asc')->paginate(10);
             $barbers = User::where('user_type', 'barber')->get();
             return view('user.dashboard.waiting', compact('tickets', 'barbers'));
         }catch(\Exception $e){
@@ -101,7 +101,7 @@ class DashboardController extends Controller
     
     public function inService(){
         try {
-            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::IN_SERVICE)->whereDate('created_at', Carbon::today())->orderBy('id', 'asc')->paginate(10);
+            $tickets = Ticket::with(['customer', 'barber'])->where('status', OrderStatus::IN_SERVICE)->orderBy('id', 'asc')->paginate(10);
             return view('user.dashboard.inservice', compact('tickets'));
         }catch(\Exception $e){
             return back()->with(['error' => $e->getMessage()]);
@@ -194,4 +194,14 @@ class DashboardController extends Controller
 
         return response()->json($data);
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->status = $request->status;
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
+
 }

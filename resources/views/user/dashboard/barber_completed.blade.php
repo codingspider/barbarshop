@@ -62,8 +62,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                                data-bs-dismiss="modal">{{ __('messages.close') }}</button>
+                                            <button type="submit" class="btn btn-primary">{{ __('messages.update') }}</button>
                                         </div>
                                     </form>
                                 </div>
@@ -81,7 +81,7 @@
         </table>
     </div>
     <div>
-        @if(isset($tickets))
+        @if(isset($tickets) && $status != 'in_service')
         {!! $tickets->links() !!}
         @endif
     </div>

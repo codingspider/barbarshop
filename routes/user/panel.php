@@ -40,6 +40,7 @@ Route::prefix('user')->name('user.')->group(function () {
         
         Route::get('/get-ticket-details/{id}', [DashboardController::class, 'getTicketDetails'])->name('get-ticket-details');
         Route::get('/barbers/status', [DashboardController::class, 'getStatus'])->name('barbers.status');
+        Route::post('/status/{id}', [DashboardController::class, 'updateStatus']);
 
         Route::get('step-one', [FrontController::class, 'stepOne'])->name('step-one');
         Route::get('step-two', [FrontController::class, 'stepTwo'])->name('step-two');

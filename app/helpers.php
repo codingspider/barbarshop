@@ -17,6 +17,14 @@ if (!function_exists('formatPrice')) {
     }
 }
 
+if (!function_exists('defaultCurrency')) {
+    function defaultCurrency()
+    {
+        $currency = \App\Models\Currency::where('is_default', 1)->first();
+        return $currency ? $currency->symbol : null;
+    }
+}
+
 if (!function_exists('humanDateTime')) {
     function humanDateTime($datetime)
     {

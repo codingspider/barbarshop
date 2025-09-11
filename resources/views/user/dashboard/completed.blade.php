@@ -8,7 +8,6 @@
             <thead class="table-dark">
                 <tr>
                     <th>{{ __('messages.id') }}</th>
-                    <th>{{ __('messages.name') }}</th>
                     <th>{{ __('messages.barber') }}</th>
                     <th>{{ __('messages.ticket_no') }}</th>
                     <th>{{ __('messages.created_at') }}</th>
@@ -22,7 +21,6 @@
                 @foreach ($tickets as $ticket)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $ticket->customer?->name }}</td>
                     <td>{{ $ticket->barber?->name }}</td>
                     <td>{{ $ticket->ticket_no }}</td>
                     <td>{{ humanDateTime($ticket->created_at) }}</td>

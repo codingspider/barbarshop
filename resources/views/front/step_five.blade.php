@@ -27,7 +27,7 @@
                     <div><span class="service_price">0</span></div>
                 </div>
                 
-                <div class="d-flex justify-content-between small text-muted mb-1 addonsData">
+                <div class="addonsData">
 
                 </div>
                 

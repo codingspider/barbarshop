@@ -12,45 +12,45 @@
                             <span class="logo-icon">
                                 <i class="fa fa-gg-circle fs-3"></i>
                             </span>
-                            <span class="logo-text">{{ env('APP_NAME') }}</span>
+                            <span class="logo-text">{{ config('app.name') }}</span>
                         </a>
                         <!-- Sidebar -->
                         <div class="bg-light vh-100 p-3" style="width: 250px;">
-                            <h5 class="mb-4">Admin Panel</h5>
+                            <h5 class="mb-4">{{ __('messages.dashboard')}}</h5>
                             <ul class="nav flex-column">
                                 <li class="nav-item mb-2">
                                     <a class="nav-link active" href="{{ route('admin.dashboard') }}">
-                                        Dashboard
+                                        {{ __('messages.dashboard') }}
                                     </a>
                                 </li>
                                 <li class="nav-item mb-2">
                                     <a class="nav-link" href="{{ route('admin.users.index') }}">
-                                        Users
+                                        {{ __('messages.users') }}
                                     </a>
                                 </li>
                                 <li class="nav-item mb-2">
                                     <a class="nav-link" href="{{ route('admin.currencies.index') }}">
-                                        Currencies
+                                        {{ __('messages.currencies') }}
                                     </a>
                                 </li>
                                 <li class="nav-item mb-2">
                                     <a class="nav-link" href="{{ route('admin.services.index') }}">
-                                        Services
+                                        {{ __('messages.services') }}
                                     </a>
                                 </li>
                                 <li class="nav-item mb-2">
                                     <a class="nav-link" href="{{ route('admin.addons.index') }}">
-                                        Addons
+                                        {{ __('messages.addons') }}
                                     </a>
                                 </li>
                                 <li class="nav-item mb-2">
                                     <a class="nav-link" href="{{ route('admin.app-management') }}">
-                                        App Management
+                                        {{ __('messages.app') }}
                                     </a>
                                 </li>
                                 <li class="nav-item mb-2">
                                     <a class="nav-link" href="{{ route('admin.barbers.index') }}">
-                                        Barbers
+                                        {{ __('messages.barbers') }}
                                     </a>
                                 </li>
                             </ul>

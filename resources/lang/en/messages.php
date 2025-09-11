@@ -106,4 +106,7 @@ return [
     'name_french'  => 'Nom français',
     'name_arabic'  => 'الاسم العربي',
 
+    'available' => 'Available',
+    'unavailable' => 'Unavailable',
+
 ];

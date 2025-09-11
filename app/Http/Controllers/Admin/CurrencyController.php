@@ -45,7 +45,6 @@ class CurrencyController extends Controller
         try {
             
             if ($request->is_default) {
-                // reset other defaults
                 Currency::query()->update(['is_default' => false]);
             }
 
@@ -89,7 +88,12 @@ class CurrencyController extends Controller
             }
 
             $data = $request->all();
-            $data['is_default'] = (int) $request->is_default;
+            if($request->is_default == 'on'){
+                $data['is_default'] = true;
+            }else{
+                $data['is_default'] = false;
+            }
+            
 
             $currency->update($data);
             DB::commit();

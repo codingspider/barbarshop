@@ -144,5 +144,31 @@ $(document).ready(function(){
     $('.select2').select2();
 });
 </script>
+<script>
+$(document).on('change', '.user-status-toggle', function() {
+    let userId = $(this).data('id');
+    let status = $(this).is(':checked') ? 'active' : 'inactive';
+
+    $.ajax({
+        url: '/user/status/' + userId,
+        type: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}',
+            status: status
+        },
+        success: function(response) {
+          if(status == 'active'){
+          $('.user_status').text('Available');
+          }else{
+            $('.user_status').text('Unavailable');
+          }
+        },
+        error: function() {
+            alert('Error updating status');
+        }
+    });
+});
+</script>
+
 </body>
 </html>

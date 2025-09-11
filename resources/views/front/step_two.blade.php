@@ -14,7 +14,13 @@
                      style="width: 100%; pointer-events: none;">
 
                 <div class="service-body mt-2">
+                    @if($currentLocale == 'en')
                     <div class="service-title">{{ $service->name }}</div>
+                    @elseif ($currentLocale == 'fr')
+                    <div class="service-title">{{ $service->name_fr}}</div>
+                    @else
+                    <div class="service-title">{{ $service->name_ar }}</div>
+                    @endif
                     <div class="d-flex justify-content-between align-items-center mt-2">
                         <div class="service-price mb-0">{{ formatPrice($service->price) }}</div>
                     </div>

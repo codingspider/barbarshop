@@ -93,7 +93,9 @@ return [
     'skip' =>'Passer',
     'next_customer' => 'Prochains clients',
     'signout' => 'se déconnecter',
-        'name_english' => 'English Name',
+    'name_english' => 'English Name',
     'name_french'  => 'Nom français',
     'name_arabic'  => 'الاسم العربي',
+    'available'   => 'Disponible',
+    'unavailable' => 'Indisponible',
 ];

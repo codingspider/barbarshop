@@ -155,17 +155,20 @@ $(document).ready(function() {
 
     function updateCartSummary() {
         $.get('/cart/total', function(res) {
-            console.log(res.items);
+
             let tbodyHtml = '';
             $('.service_name').text(res.items.service);
             $('.service_price').text(res.items.price);
+            let currency = $('#default_currency').val();
 
             // Loop through addons
             res.items.addons.forEach(addon => {
                 tbodyHtml += `
-                    <div class="d-flex justify-content-between w-100 small text-muted mb-1">
-                        <span>${addon.name}</span>
-                        <span>$${addon.price}</span>
+                    <div>
+                        <div class="d-flex justify-content-between w-100 small text-muted mb-1">
+                            <span>${addon.name}</span>
+                            <span>${currency}${addon.price}</span>
+                        </div>
                     </div>
                 `;
             });

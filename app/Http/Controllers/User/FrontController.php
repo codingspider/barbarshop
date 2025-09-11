@@ -17,10 +17,10 @@ class FrontController extends Controller
 {
     public function stepOne(){
         $users = User::with(['tickets' => function($query) {
-            $query->where('status', 'in_service')
+            $query->where('status', 'waiting')
                 ->orderBy('requested_at', 'asc')
                 ->take(3);
-        }])->where('user_type', 'barber')
+        }])->where('user_type', 'barber')->where('status', 'active')
         ->get();
         return view('front.step_one', compact('users'));
     }

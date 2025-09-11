@@ -130,7 +130,7 @@ class TicketController extends Controller
             $ticket = Ticket::where('id', $request->ticket_id)->where('assigned_barber_id', $id)->first();
 
             if($ticket){
-                if($request->status == 'open'){
+                if($request->status == 'in_service'){
                     $ticket->status = OrderStatus::IN_SERVICE;
                     $ticket->started_at = now();
                 }elseif($request->status == 'completed'){
@@ -146,7 +146,14 @@ class TicketController extends Controller
 
             DB::commit();
 
-           return redirect()->back()->with('success', 'Action completed successfully.');
+            if($request->status == 'in_service'){
+                return redirect()->route('user.status-completed', 'in_service')->with('success', 'Action completed successfully.');
+            }elseif($request->status == 'completed'){
+                return redirect()->route('user.status-completed', 'completed')->with('success', 'Action completed successfully.');
+            }
+            else{
+                return redirect()->back()->with('success', 'Action completed successfully.');
+            }
         } catch (\Exception $e) {
             DB::rollBack();
             return redirect()->back()->with('error', $e->getMessage());
@@ -155,7 +162,11 @@ class TicketController extends Controller
 
     public function barberAllAction($status){
         $id = Auth::guard('user')->user()->id;
-        $tickets = Ticket::with('customer')->where('status', $status)->whereDate('created_at', Carbon::today())->orderBy('id', 'desc')->paginate(10);
+        if($status == 'in_service'){
+            $tickets = Ticket::with('customer')->where('status', $status)->latest()->take(1)->paginate(1);
+        }else{
+            $tickets = Ticket::with('customer')->where('status', $status)->orderBy('id', 'desc')->paginate(10);
+        }
         return view('user.dashboard.barber_completed', compact('tickets', 'status'));
     }
     
