@@ -16,6 +16,8 @@
                             <th>{{ __('messages.id') }}</th>
                             <th>{{ __('messages.image') }}</th>
                             <th>{{ __('messages.name') }}</th>
+                            <th>{{ __('messages.name_arabic') }}</th>
+                            <th>{{ __('messages.name_french') }}</th>
                             <th>{{ __('messages.price') }}</th>
                             <th>{{ __('messages.status') }}</th>
                             <th>{{ __('messages.actions') }}</th>
@@ -29,6 +31,8 @@
                                     <img src="{{ $service->image }}" alt="" height="40" width="50" srcset="">
                                 </td>
                                 <td>{{ $service->name }}</td>
+                                <td>{{ $service->name_ar }}</td>
+                                <td>{{ $service->name_fr }}</td>
                                 <td>{{ $service->price }}</td>
                                 <td>{{ $service->active ? 'Yes' : 'No' }}</td>
                                 <td class="d-flex gap-1">

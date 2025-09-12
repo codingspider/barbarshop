@@ -98,4 +98,8 @@ return [
     'name_arabic'  => 'الاسم العربي',
     'available'   => 'Disponible',
     'unavailable' => 'Indisponible',
+    'your_turn' => 'Veuillez attendre votre tour',
+    'thank_you' => 'Merci de votre visite !',
+    'invoice_no' => 'Facture No',
+    'minutes'    => 'Minutes',
 ];

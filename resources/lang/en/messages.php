@@ -108,5 +108,10 @@ return [
 
     'available' => 'Available',
     'unavailable' => 'Unavailable',
+    'your_turn' => 'Please wait for your turn',
+    'thank_you' => 'Thank you for visiting!',
+
+    'invoice_no' =>'Invoice No',
+    'minutes' =>'Minutes',
 
 ];

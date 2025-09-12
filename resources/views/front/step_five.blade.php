@@ -10,7 +10,7 @@
                 {{ __('messages.ahead') }}
             </div>
             <div style="margin-top:12px;color:#9ca3af">
-                {{ __('approx') }}, {{ $datas['time']}} {{ __('messages.min')}}
+                {{ __('messages.approx') }}, {{ $datas['time']}} {{ __('messages.min')}}
             </div>
         </div>
     </div>

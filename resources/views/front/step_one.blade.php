@@ -1,9 +1,12 @@
 <div class="container">
  <div class="row">
     @foreach($users as $user)
-        @php $datas = getBarberSchedule($user->id); @endphp
+        @php 
+        $datas = getBarberSchedule($user->id); 
+        $status = barberAbilityCheck($user->id);
+        @endphp
         <div class="col-md-4 col-sm-4 mb-4">
-            <div class="service-card order-btn" style="cursor:pointer; border: 5px solid black">
+            <div class="service-card {{ $status == 1 ? 'order-btn' : ''}}" style="cursor:pointer; border: 5px solid black">
                 <img src="{{ $user->image }}" alt="{{ $user->name }}">
                 <div class="d-flex align-items-center mt-2" style="margin:2px">
                     <h6 class="fw-bold mb-0 me-3">{{ $user->name }}</h6>
@@ -19,8 +22,17 @@
                 </div>
                 <p>
                     <ul class="list-unstyled d-flex flex-wrap gap-2">
+                        @if($status == 1)
                         <li class="me-2">{{ __('messages.next_customer') }}</li>
+                        @else
+                            <li>
+                                <span class="badge bg-danger p-2 me-3" style="font-size: 10px; padding-left: 3px">
+                                    {{ __('messages.unavailable') }}
+                                </span>
+                            </li>
+                        @endif
                         <div class="w-100" style="font-size: 10px"></div> {{-- forces line break --}}
+                        @if($status == 1)
                         @foreach($user->tickets as $ticket)
                             <li>
                                 <span class="badge bg-primary p-2" style="font-size: 10px">
@@ -28,6 +40,7 @@
                                 </span>
                             </li>
                         @endforeach
+                        @endif
                     </ul>
 
                 </p>
@@ -38,8 +51,10 @@
 </div>
 
 
+    @if(availableCount() > 0)
     <!-- Button -->
     <div class="mt-4">
         <button class="order-btn">{{ __('messages.order') }}</button>
     </div>
+    @endif
 </div>

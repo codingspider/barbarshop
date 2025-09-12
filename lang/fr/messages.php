@@ -98,4 +98,8 @@ return [
     'dashboard' => 'Tableau de bord',
     'order' => 'Commande',
     'next_customer' => 'Prochains clients',
+    'your_turn' => 'Veuillez attendre votre tour',
+    'thank_you' => 'Merci de votre visite !',
+    'invoice_no' => 'Facture No',
+    'minutes'    => 'Minutes',
 ];

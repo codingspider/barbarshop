@@ -191,13 +191,8 @@ $(document).ready(function() {
             url: "/user/create-ticket/",
             method: "GET",
             success: function(res) {
-                console.log(res);
                 stepSix(res.id);
-                // printTicket(res.id);
-                window.open(`/user/ticket/print/${res.id}`, '_blank');
-                // setTimeout(function() {
-                //     window.location.href = "/";
-                // }, 5000);
+                window.open(`/user/ticket/print/${res.id}`);
             },
             error: function(err) {
                 console.error(err);

@@ -17,7 +17,7 @@ class CustomCartController extends Controller
         // Create item array
         $item = [
             'id'       => $request->id,
-            'name'     => $request->name,
+            'name'     => serviceName($request->id),
             'qty'      => $request->qty ?? 1,
             'price'    => $request->price,
             'base_price' => $request->price,
@@ -65,7 +65,7 @@ class CustomCartController extends Controller
                 // Add addon
                 $cart['addons'][] = [
                     'id'    => $addon_id,
-                    'name'  => $addon->name,
+                    'name'  => addonName($addon->id),
                     'price' => $addonPrice,
                 ];
 

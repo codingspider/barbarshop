@@ -20,7 +20,7 @@ class FrontController extends Controller
             $query->where('status', 'waiting')
                 ->orderBy('requested_at', 'asc')
                 ->take(3);
-        }])->where('user_type', 'barber')->where('status', 'active')
+        }])->where('user_type', 'barber')
         ->get();
         return view('front.step_one', compact('users'));
     }
