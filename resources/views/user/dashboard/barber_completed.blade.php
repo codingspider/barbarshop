@@ -10,6 +10,7 @@
                     <th>{{ __('messages.name') }}</th>
                     <th>{{ __('messages.ticket_no') }}</th>
                     <th>{{ __('messages.requested_at') }}</th>
+                    <th>{{ __('messages.finished_at') }}</th>
                     <th>{{ __('messages.status') }}</th>
                     @if($status == 'in_service')
                     <th>{{ __('messages.actions') }}</th>
@@ -25,7 +26,8 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $ticket->customer?->name }}</td>
                     <td>{{ $ticket->ticket_no }}</td>
-                    <td>{{ $ticket->created_at }}</td>
+                    <td>{{ $ticket->requested_at }}</td>
+                    <td>{{ $ticket->finished_at }}</td>
                     <td>{!! $ticket->statusBadge() !!}</td>
                     @if($status == 'in_service')
                     <td>
